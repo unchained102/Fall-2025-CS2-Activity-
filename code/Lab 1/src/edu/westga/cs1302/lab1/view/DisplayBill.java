@@ -10,6 +10,9 @@ import edu.westga.cs1302.lab1.model.BillItem;
  * @version Fall 2025
  */
 public class DisplayBill {
+	public static final double TIP_PERCENTAGE = 0.2;
+	public static final double TAX_PERCENTAGE = 0.1;
+
 	/** Return a String containing the list of bill items and total for the bill.
 	 * 
 	 * @precondition none
@@ -29,8 +32,8 @@ public class DisplayBill {
 		
 		text += System.lineSeparator();
 		text += "SUBTOTAL - $" + subTotal + System.lineSeparator();
-		double tax = subTotal * 0.1;
-		double tip = subTotal * 0.2;
+		double tax = subTotal * TAX_PERCENTAGE;
+		double tip = subTotal * TIP_PERCENTAGE;
 		text += "TAX - $" + tax + System.lineSeparator();
 		text += "TIP - $" + tip + System.lineSeparator();
 		text += "TOTAL - $" + (subTotal + tip + tax);
