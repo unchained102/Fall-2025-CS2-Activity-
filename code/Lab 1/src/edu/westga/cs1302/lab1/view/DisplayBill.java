@@ -1,8 +1,8 @@
 
 package edu.westga.cs1302.lab1.view;
 
-import java.util.ArrayList;
 import edu.westga.cs1302.lab1.model.BillItem;
+import edu.westga.cs1302.lab1.model.Bill;
 
 /** Contains a method to display the Bill including item names and prices, and totals.
  * 
@@ -13,19 +13,19 @@ public class DisplayBill {
 	public static final double TIP_PERCENTAGE = 0.2;
 	public static final double TAX_PERCENTAGE = 0.1;
 
-	/** Return a String containing the list of bill items and total for the bill.
+	/** Return a String containing the list of bill items, sub-total, tax, tip, and total for the bill.
 	 * 
 	 * @precondition none
 	 * @postcondition none
 	 * 
-	 * @param items The list of BillItems retrieved via getBillItems in the Bill Class.
+	 * @param bill The bill in question.
 	 * 
 	 * @return a String containing the list of bill items and total for the bill
 	 */
-	public String getText(ArrayList<BillItem> items) {
+	public String getText(Bill bill) {
 		String text = "ITEMS" + System.lineSeparator();
 		double subTotal = 0.0;
-		for (BillItem item : items) {
+		for (BillItem item : bill.getBillItems()) {
 			text += item.getName() + " - " + item.getAmount() + System.lineSeparator();
 			subTotal += item.getAmount();
 		}
@@ -39,5 +39,6 @@ public class DisplayBill {
 		text += "TOTAL - $" + (subTotal + tip + tax);
 		
 		return text;
+		
 	}
 }

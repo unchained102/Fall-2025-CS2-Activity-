@@ -9,6 +9,18 @@ public class HiLoGame {
 	private int guessCount;
 	private int targetNumber;
 	
+	/** Initialize a new HiLoGame
+	 * 
+	 * @precondition none
+	 * @postcondition getGuessCount() == 0 && getTargetNumber() == 0
+	 * 
+	 * @param targetNumber the number to guess
+	 */
+	public HiLoGame(int targetNumber) {
+		this.guessCount = 0;
+		this.targetNumber = targetNumber;
+	}
+	
 	/** Get the number of guesses made so far
 	 * 
 	 * @precondition none
@@ -29,18 +41,6 @@ public class HiLoGame {
 	 */
 	public int getTargetNumber() {
 		return this.targetNumber;
-	}
-	
-	/** Initialize a new HiLoGame
-	 * 
-	 * @precondition none
-	 * @postcondition getGuessCount() == 0 && getTargetNumber() == 0
-	 * 
-	 * @param targetNumber the number to guess
-	 */
-	public HiLoGame(int targetNumber) {
-		this.guessCount = 0;
-		this.targetNumber = targetNumber;
 	}
 	
 	/** Allow player to make a guess, and generate the appropriate response

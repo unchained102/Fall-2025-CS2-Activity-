@@ -59,7 +59,7 @@ class TestMakeGuess {
 
 		String result = game.makeGuess(3);
 		
-		assertEquals("Correct.", result, "checking result of makeGuess");
+		assertEquals("Too many guesses.", result, "checking result of makeGuess");
 		assertEquals(3, game.getGuessCount(), "checking guess count");
 		
 	}
