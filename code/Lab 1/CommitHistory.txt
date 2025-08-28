@@ -1,3 +1,18 @@
+commit 7bd115a8f579835515fb9c0543885884f27907ab
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Tue Aug 26 23:23:26 2025 -0400
+
+    Made DisplayBill more intuitive to use.
+    
+    Originally I had the getText() method in DisplayBill take an ArrayList<BillItem> (which you would get from the getBillItems() method in the Bill class)
+    as an argument, which I realise now was redundant and unintuitive.
+    
+    Now it takes the bill itself as an argument, and uses getBillItems within the method itself, removing the need to import ArrayList to DisplayBill,
+    as well as improving readability and usability of the method.
+    
+    There are various other changes listed in this commit which can be safely ignored as they have nothing to do with Lab1 and are mainly just me
+    trying to get accustomed to git and eclipse.
+
 commit 0408b274a96fcadecf0396ba22931074864afbb9
 Author: ever dewb <everetttdewberry@gmail.com>
 Date:   Tue Aug 26 09:20:28 2025 -0400
