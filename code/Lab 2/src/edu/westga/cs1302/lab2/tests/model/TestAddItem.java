@@ -1,6 +1,7 @@
 package edu.westga.cs1302.lab2.tests.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 import edu.westga.cs1302.lab2.model.Bill;
