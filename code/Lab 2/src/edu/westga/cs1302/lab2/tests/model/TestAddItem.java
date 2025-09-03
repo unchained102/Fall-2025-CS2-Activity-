@@ -23,6 +23,10 @@ class TestAddItem {
 		
 		bill.addItem(item);
 		
+		for (BillItem testItem: bill.getItems()) {
+			assertEquals(testItem.getName(), "Cheese");
+			assertEquals(testItem.getAmount(), 1.00, 0.001);
+		}
 	}
 
 }
