@@ -1,6 +1,6 @@
 package edu.westga.cs1302.lab2.tests.view;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +8,7 @@ import edu.westga.cs1302.lab2.model.Bill;
 import edu.westga.cs1302.lab2.model.BillItem;
 import edu.westga.cs1302.lab2.view.BillView;
 
-class TestGetText {
+class TestBillViewGetText {
 
 	@Test
 	void testGetText() {
@@ -22,7 +22,7 @@ class TestGetText {
 				+ "SUBTOTAL - $1.0\r\n"
 				+ "TAX - $0.1\r\n"
 				+ "TIP - $0.2\r\n"
-				+ "TOTAL - $1.3", view.getText(bill));
+				+ "TOTAL - $1.3", view.getText(bill), "Checking that the text is returned exactly as expected.");
 	}
 
 }
