@@ -45,4 +45,22 @@ public class BillCalculator {
 		double tax = subTotal * Bill.TAX_RATE;
 		return tax;
 	}
+	
+	/**
+	 * Calculates and returns the tip for an array of BillItems.
+	 * 
+	 * @param items the array of BillItems
+	 * @return tip the tip cost of the bill
+	 */
+	public static double calcTip(BillItem[] items) {
+		for (int index = 0; index < items.length; index++) {
+			if (items[index] == null) {
+				throw new IllegalArgumentException("None of the BillItems in the array can be null.");
+			}
+		}
+		
+		double subTotal = BillCalculator.calcSubtotal(items);
+		double tip = subTotal * Bill.TIP_RATE;
+		return tip;
+	}
 }

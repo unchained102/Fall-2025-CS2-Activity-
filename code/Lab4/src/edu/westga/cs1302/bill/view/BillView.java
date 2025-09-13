@@ -30,7 +30,7 @@ public class BillView {
 		text += System.lineSeparator();
 		text += "SUBTOTAL - $" + subTotal + System.lineSeparator();
 		double tax = BillCalculator.calcTax(bill.getItems().toArray(new BillItem[bill.getItems().size()]));
-		double tip = subTotal * Bill.TIP_RATE;
+		double tip = BillCalculator.calcTip(bill.getItems().toArray(new BillItem[bill.getItems().size()]));
 		text += "TAX - $" + BillView.roundToNearestHundredth(tax) + System.lineSeparator();
 		text += "TIP - $" + BillView.roundToNearestHundredth(tip) + System.lineSeparator();
 		text += "TOTAL - $" + BillView.roundToNearestHundredth(subTotal + tip + tax);
