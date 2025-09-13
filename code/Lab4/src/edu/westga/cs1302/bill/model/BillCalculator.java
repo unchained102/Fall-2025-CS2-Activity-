@@ -11,7 +11,7 @@ public class BillCalculator {
 	/**
 	 * Calculates and returns the sub-total for an array of BillItems.
 	 * 
-	 * @param items the list of BillItems to be summed
+	 * @param items the array of BillItems
 	 * @return subTotal the sub-total of the bill
 	 */
 	public static double calcSubtotal(BillItem[] items) {
@@ -26,5 +26,23 @@ public class BillCalculator {
 		}
 		
 		return subTotal;
+	}
+	
+	/**
+	 * Calculates and returns the tax for an array of BillItems.
+	 * 
+	 * @param items the array of BillItems
+	 * @return tax the tax cost of the bill
+	 */
+	public static double calcTax(BillItem[] items) {
+		for (int index = 0; index < items.length; index++) {
+			if (items[index] == null) {
+				throw new IllegalArgumentException("None of the BillItems in the array can be null.");
+			}
+		}
+		
+		double subTotal = BillCalculator.calcSubtotal(items);
+		double tax = subTotal * Bill.TAX_RATE;
+		return tax;
 	}
 }
