@@ -23,17 +23,18 @@ public class BillView {
 	public static String getText(Bill bill) {
 		String text = "ITEMS" + System.lineSeparator();
 		double subTotal = BillCalculator.calcSubtotal(bill.getItems().toArray(new BillItem[bill.getItems().size()]));
+		double tax = BillCalculator.calcTax(bill.getItems().toArray(new BillItem[bill.getItems().size()]));
+		double tip = BillCalculator.calcTip(bill.getItems().toArray(new BillItem[bill.getItems().size()]));
+		double total = BillCalculator.calcTotal(bill.getItems().toArray(new BillItem[bill.getItems().size()]));
 		for (BillItem item : bill.getItems()) {
 			text += item.getName() + " - " + item.getAmount() + System.lineSeparator();
 		}
 		
 		text += System.lineSeparator();
 		text += "SUBTOTAL - $" + subTotal + System.lineSeparator();
-		double tax = BillCalculator.calcTax(bill.getItems().toArray(new BillItem[bill.getItems().size()]));
-		double tip = BillCalculator.calcTip(bill.getItems().toArray(new BillItem[bill.getItems().size()]));
 		text += "TAX - $" + BillView.roundToNearestHundredth(tax) + System.lineSeparator();
 		text += "TIP - $" + BillView.roundToNearestHundredth(tip) + System.lineSeparator();
-		text += "TOTAL - $" + BillView.roundToNearestHundredth(subTotal + tip + tax);
+		text += "TOTAL - $" + BillView.roundToNearestHundredth(total);
 		
 		return text;
 	}

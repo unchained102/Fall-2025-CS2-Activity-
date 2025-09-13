@@ -10,7 +10,8 @@ public class BillCalculator {
 	
 	/**
 	 * Calculates and returns the sub-total for an array of BillItems.
-	 * 
+	 * @precondition no BillItem in items is null
+	 * @postcondition none
 	 * @param items the array of BillItems
 	 * @return subTotal the sub-total of the bill
 	 */
@@ -30,7 +31,8 @@ public class BillCalculator {
 	
 	/**
 	 * Calculates and returns the tax for an array of BillItems.
-	 * 
+	 * @precondition no BillItem in items is null
+	 * @postcondition none
 	 * @param items the array of BillItems
 	 * @return tax the tax cost of the bill
 	 */
@@ -48,7 +50,8 @@ public class BillCalculator {
 	
 	/**
 	 * Calculates and returns the tip for an array of BillItems.
-	 * 
+	 * @precondition no BillItem in items is null
+	 * @postcondition none
 	 * @param items the array of BillItems
 	 * @return tip the tip cost of the bill
 	 */
@@ -62,5 +65,26 @@ public class BillCalculator {
 		double subTotal = BillCalculator.calcSubtotal(items);
 		double tip = subTotal * Bill.TIP_RATE;
 		return tip;
+	}
+	
+	/**
+	 * Calculates and returns the total for an array of BillItems.
+	 * @precondition no BillItem in items is null
+	 * @postcondition none
+	 * @param items the array of BillItems
+	 * @return total the total cost of the bill
+	 */
+	public static double calcTotal(BillItem[] items) {
+		for (int index = 0; index < items.length; index++) {
+			if (items[index] == null) {
+				throw new IllegalArgumentException("None of the BillItems in the array can be null.");
+			}
+		}
+		
+		double subTotal = BillCalculator.calcSubtotal(items);
+		double tip = BillCalculator.calcTip(items);
+		double tax = BillCalculator.calcTax(items);
+		double total = subTotal + tip + tax;
+		return total;
 	}
 }
