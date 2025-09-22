@@ -1,10 +1,14 @@
 package edu.westga.cs1302.Project1.views;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import edu.westga.cs1302.Project1.model.Task;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 /**
@@ -21,23 +25,26 @@ public class MainWindow {
     private TextField nameField;
 
     @FXML
-    private ComboBox<?> priorityBox;
+    private ComboBox<String> priorityBox;
 
     @FXML
     private Button submitButton;
 
     @FXML
-    private ListView<?> taskList;
+    private ListView<Task> taskList;
     
     @FXML
     void submitPressed(ActionEvent event) {
-
+    	Task task = new Task(this.nameField.getText(), this.descriptionBox.getText(), this.priorityBox.getValue().toString());
+    	this.taskList.getItems().add(task);
     }
     
     /**
      * Perform any needed initialization of UI components and underlying objects.
      */
     public void initialize() {
-    	
+    	String[] aPriorities = {"High", "Medium", "Low"};
+    	ObservableList<String> olPriorities = FXCollections.observableArrayList(aPriorities);
+    	this.priorityBox.setItems(olPriorities);
     }
 }
