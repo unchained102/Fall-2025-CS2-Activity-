@@ -12,6 +12,7 @@ import edu.westga.cs1302.Project1.model.Task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Label;
 
 /**
  * Controller class for drawing various things to our canvas window.
@@ -43,6 +44,18 @@ public class MainWindow {
 
     @FXML
     private ListView<Task> taskList;
+    
+    @FXML
+    private Label highPriority;
+
+    @FXML
+    private Label lowPriority;
+
+    @FXML
+    private Label mediumPriority;
+    
+    @FXML
+    private Label totalTasks;
     
 	boolean nameFieldAndDescriptionBoxAndPriorityBoxNotNull() {
 		return this.nameField.getText() != null && this.descriptionBox.getText() != null && this.priorityBox.getValue() != null;
@@ -116,15 +129,13 @@ public class MainWindow {
     		Task task = new Task(this.nameField.getText(), this.descriptionBox.getText(), this.priorityBox.getValue().toString());
     		this.taskList.getItems().add(task);
     	}
-    	
     }
     
     /**
-     * Creates a string[] aPriorities with the list of priorities, converts it into JavaFX's weird Observable ArrayList (olPriorities) so that it can be used in the ComboBox.
+     * Takes the constant PRIORITIES from Task and converts it into JavaFX's weird Observable ArrayList (olPriorities) so that it can be used in the ComboBox.
      */
     public void initialize() {
-    	String[] aPriorities = {"High", "Medium", "Low"};
-    	ObservableList<String> olPriorities = FXCollections.observableArrayList(aPriorities);
+    	ObservableList<String> olPriorities = FXCollections.observableArrayList(Task.PRIORITIES);
     	this.priorityBox.setItems(olPriorities);
     }
 }

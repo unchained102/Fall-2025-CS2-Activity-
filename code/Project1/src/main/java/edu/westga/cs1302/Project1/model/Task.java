@@ -6,6 +6,8 @@ package edu.westga.cs1302.Project1.model;
  * @author edewber2@my.westga.edu
  */
 public class Task {
+	public static final String[] PRIORITIES = {"High", "Medium", "Low"};
+
 	private final String name;
 	private String description;
 	private final String priority;

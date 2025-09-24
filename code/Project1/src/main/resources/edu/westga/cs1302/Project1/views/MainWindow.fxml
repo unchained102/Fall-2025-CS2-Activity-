@@ -27,14 +27,18 @@
             <ListView fx:id="taskList" layoutX="260.0" layoutY="40.0" onKeyPressed="#taskSelectedKeyboard" onMouseClicked="#taskSelectedMouse" prefHeight="180.0" prefWidth="200.0" />
             <Label layoutX="260.0" text="Task List" />
             <Label layoutX="640.0" />
-            <Label layoutX="520.0" text="Selected Name" />
-            <TextField id="selectedNameField" fx:id="selectedNameField" editable="false" layoutX="520.0" layoutY="40.0" text="No Task Selected" />
-            <TextArea fx:id="selectedDescription" layoutX="520.0" layoutY="120.0" prefHeight="180.0" prefWidth="200.0" />
-            <Label layoutX="520.0" layoutY="80.0" text="Selected Description" />
-            <Label layoutX="520.0" layoutY="320.0" text="Selected Priority" />
-            <TextField fx:id="selectedPriority" editable="false" layoutX="520.0" layoutY="360.0" />
-            <Button layoutX="760.0" layoutY="197.0" mnemonicParsing="false" onAction="#updateDescriptionPressed" text="Update Description" />
+            <Label layoutX="640.0" text="Selected Name" />
+            <TextField id="selectedNameField" fx:id="selectedNameField" editable="false" layoutX="640.0" layoutY="40.0" text="No Task Selected" />
+            <TextArea fx:id="selectedDescription" layoutX="640.0" layoutY="120.0" prefHeight="180.0" prefWidth="200.0" />
+            <Label layoutX="640.0" layoutY="80.0" text="Selected Description" />
+            <Label layoutX="640.0" layoutY="320.0" text="Selected Priority" />
+            <TextField fx:id="selectedPriority" editable="false" layoutX="640.0" layoutY="360.0" />
+            <Button layoutX="880.0" layoutY="197.0" mnemonicParsing="false" onAction="#updateDescriptionPressed" text="Update Description" />
             <Button layoutX="298.0" layoutY="240.0" mnemonicParsing="false" onAction="#deleteSelectedTaskPressed" text="Delete Selected task" />
+            <Label fx:id="highPriority" layoutX="467.0" layoutY="40.0" text="High Priority:" />
+            <Label fx:id="mediumPriority" layoutX="467.0" layoutY="80.0" text="Medium Priority:" />
+            <Label fx:id="lowPriority" layoutX="467.0" layoutY="120.0" text="Low Priority:" />
+            <Label fx:id="totalTasks" layoutX="467.0" layoutY="160.0" text="Total:" />
          </children>
       </AnchorPane>
    </children>
