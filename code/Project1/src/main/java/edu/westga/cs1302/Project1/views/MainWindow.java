@@ -44,50 +44,83 @@ public class MainWindow {
     @FXML
     private ListView<Task> taskList;
     
-    @FXML
-    void submitPressed(ActionEvent event) {
-    	Task task = new Task(this.nameField.getText(), this.descriptionBox.getText(), this.priorityBox.getValue().toString());
-    	this.taskList.getItems().add(task);
+	boolean nameFieldAndDescriptionBoxAndPriorityBoxNotNull() {
+		return this.nameField.getText() != null && this.descriptionBox.getText() != null && this.priorityBox.getValue() != null;
+	}
+    
+    void updateDisplayedTask() {
+    	if (this.selectedItemNotNull()) {
+    		this.selectedNameField.setText(this.getSelectedItemName());
+    		this.selectedDescription.setText(this.getSelectedItemDescription());
+    		this.selectedPriority.setText(this.getSelectedItemPriority());
+
+    	} else {
+    		this.selectedNameField.setText("No Task Selected");
+    		this.selectedDescription.setText("");
+    		this.selectedPriority.setText("");
+    	}
     }
+
+	boolean selectedItemNotNull() {
+		return this.taskList.getSelectionModel().getSelectedItem() != null;
+	}
+
+	String getSelectedItemPriority() {
+		return this.taskList.getSelectionModel().getSelectedItem().getPriority();
+	}
+
+	String getSelectedItemDescription() {
+		return this.taskList.getSelectionModel().getSelectedItem().getDescription();
+	}
+
+	String getSelectedItemName() {
+		return this.taskList.getSelectionModel().getSelectedItem().toString();
+	}
+	
+	int selectedItemIndex() {
+		return this.taskList.getSelectionModel().getSelectedIndex();
+	}
+	
+	void updateSelectedDescription() {
+		this.taskList.getSelectionModel().getSelectedItem().setDescription(this.selectedDescription.getText());
+	}
     
     @FXML
     void deleteSelectedTaskPressed(ActionEvent event) {
-    	
+    	if (this.selectedItemNotNull()) {
+    		this.taskList.getItems().remove(this.selectedItemIndex());
+    	}
+    	this.updateDisplayedTask();
     }
     
     @FXML
     void taskSelectedMouse(MouseEvent event) {
-    	if (this.taskList.getSelectionModel().getSelectedItem() != null) {
-    		this.selectedNameField.setText(this.taskList.getSelectionModel().getSelectedItem().toString());
-    		this.selectedDescription.setText(this.taskList.getSelectionModel().getSelectedItem().getDescription());
-    		this.selectedPriority.setText(this.taskList.getSelectionModel().getSelectedItem().getPriority());
-
-    	} else {
-    		this.selectedNameField.setText("No Task Selected");
-    	}
+    	this.updateDisplayedTask();
     }
     
     @FXML
     void taskSelectedKeyboard(KeyEvent event) {
-    	if (this.taskList.getSelectionModel().getSelectedItem() != null) {
-    		this.selectedNameField.setText(this.taskList.getSelectionModel().getSelectedItem().toString());
-    		this.selectedDescription.setText(this.taskList.getSelectionModel().getSelectedItem().getDescription());
-    		this.selectedPriority.setText(this.taskList.getSelectionModel().getSelectedItem().getPriority());
-
-    	} else {
-    		this.selectedNameField.setText("No Task Selected");
-    	}
+    	this.updateDisplayedTask();
     }
     
     @FXML
     void updateDescriptionPressed(ActionEvent event) {
-    	if (this.taskList.getSelectionModel().getSelectedItem() != null) {
-    		this.taskList.getSelectionModel().getSelectedItem().setDescription(this.selectedDescription.getText());
+    	if (this.selectedItemNotNull()) {
+    		this.updateSelectedDescription();
     	}
     }
     
+    @FXML
+    void addTaskPressed(ActionEvent event) {
+    	if (this.nameFieldAndDescriptionBoxAndPriorityBoxNotNull()) {
+    		Task task = new Task(this.nameField.getText(), this.descriptionBox.getText(), this.priorityBox.getValue().toString());
+    		this.taskList.getItems().add(task);
+    	}
+    	
+    }
+    
     /**
-     * Perform any needed initialization of UI components and underlying objects.
+     * Creates a string[] aPriorities with the list of priorities, converts it into JavaFX's weird Observable ArrayList (olPriorities) so that it can be used in the ComboBox.
      */
     public void initialize() {
     	String[] aPriorities = {"High", "Medium", "Low"};
