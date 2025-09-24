@@ -35,10 +35,10 @@
             <TextField fx:id="selectedPriority" editable="false" layoutX="640.0" layoutY="360.0" />
             <Button layoutX="880.0" layoutY="197.0" mnemonicParsing="false" onAction="#updateDescriptionPressed" text="Update Description" />
             <Button layoutX="298.0" layoutY="240.0" mnemonicParsing="false" onAction="#deleteSelectedTaskPressed" text="Delete Selected task" />
-            <Label fx:id="highPriority" layoutX="467.0" layoutY="40.0" text="High Priority:" />
-            <Label fx:id="mediumPriority" layoutX="467.0" layoutY="80.0" text="Medium Priority:" />
-            <Label fx:id="lowPriority" layoutX="467.0" layoutY="120.0" text="Low Priority:" />
-            <Label fx:id="totalTasks" layoutX="467.0" layoutY="160.0" text="Total:" />
+            <Label fx:id="highPriority" layoutX="467.0" layoutY="40.0" text="High Priority: 0" />
+            <Label fx:id="mediumPriority" layoutX="467.0" layoutY="80.0" text="Medium Priority: 0" />
+            <Label fx:id="lowPriority" layoutX="467.0" layoutY="120.0" text="Low Priority: 0" />
+            <Label fx:id="totalTasks" layoutX="467.0" layoutY="160.0" text="Total: 0" />
          </children>
       </AnchorPane>
    </children>

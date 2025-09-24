@@ -1,18 +1,19 @@
 package edu.westga.cs1302.Project1.views;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.KeyEvent;
-import edu.westga.cs1302.Project1.model.Task;
+import javafx.scene.control.Label;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Label;
+import edu.westga.cs1302.Project1.model.Task;
+import edu.westga.cs1302.Project1.model.Utility;
+import java.util.ArrayList;
 
 /**
  * Controller class for drawing various things to our canvas window.
@@ -38,9 +39,6 @@ public class MainWindow {
     
     @FXML
     private TextArea selectedDescription;
-
-    @FXML
-    private Button submitButton;
 
     @FXML
     private ListView<Task> taskList;
@@ -73,6 +71,15 @@ public class MainWindow {
     		this.selectedPriority.setText("");
     	}
     }
+    
+    void updateNumPriorities() {
+    	ArrayList<Task> tasks = new ArrayList<Task>();
+    	tasks.addAll(this.taskList.getItems());
+    	this.highPriority.setText("High Priority: " + Utility.getNumTasksPerPriority(tasks, "High"));
+    	this.mediumPriority.setText("Medium Priority: " + Utility.getNumTasksPerPriority(tasks, "Medium"));
+    	this.lowPriority.setText("Low Priority: " + Utility.getNumTasksPerPriority(tasks, "Low"));
+    	this.totalTasks.setText("Total: " + tasks.size());
+    }
 
 	boolean selectedItemNotNull() {
 		return this.taskList.getSelectionModel().getSelectedItem() != null;
@@ -104,6 +111,7 @@ public class MainWindow {
     		this.taskList.getItems().remove(this.selectedItemIndex());
     	}
     	this.updateDisplayedTask();
+    	this.updateNumPriorities();
     }
     
     @FXML
@@ -128,6 +136,8 @@ public class MainWindow {
     	if (this.nameFieldAndDescriptionBoxAndPriorityBoxNotNull()) {
     		Task task = new Task(this.nameField.getText(), this.descriptionBox.getText(), this.priorityBox.getValue().toString());
     		this.taskList.getItems().add(task);
+        	this.updateNumPriorities();
+
     	}
     }
     
