@@ -1,0 +1,385 @@
+commit ec442e029d38785bb31a7683ad1b813a06fe409b
+Author: ever dewb <overwatchad2000@gmail.com>
+Date:   Wed Sep 24 16:02:30 2025 -0400
+
+    5-C: Connect Logic and UI for Counting Number of Tasks
+    
+    New method in MainWindow.java: updateNumPriorities, which updates the number of priorities, using the Static method in Utility.java to find the numbers,
+    then adding them to the label.
+    
+    It is called inside the addTaskPressed and deleteSelectedTask methods so that any time a task is added or removed (thus the only time a priority could be added or removed)
+    the priorities get updated accordingly.
+    
+    Also did some minor cleanup, clearing checkstyle errors and specifically removing the button variable from MainWindow which is not necessary for the button to function.
+
+commit 0bbb91bc3d9fe4a30d7dde177dcefa9b045a8fba
+Author: ever dewb <overwatchad2000@gmail.com>
+Date:   Wed Sep 24 13:10:00 2025 -0400
+
+    5-B: Implemented and tested the static method described
+    
+    Utility class added
+    Utility method test cases added.
+    getNumTasksPerPriority static method works as described in the instructions and has been thoroughly tested for both sunny and rainy cases.
+
+commit 2b962243c406e9b4c966bd0591d68f4a7b1a2e16
+Author: ever dewb <overwatchad2000@gmail.com>
+Date:   Wed Sep 24 12:00:20 2025 -0400
+
+    5-A: Implementing UI
+    
+    I couldn't quite figure out what the purpose of the button was in the UI but I understand that I am meant to show the user the number of tasks for each priority,
+    and the number of tasks for all priorities or the total number of tasks, so I have put 4 labels to the right of the tasklist that are named like so:
+            High Priority:
+            Medium Priority:
+            Low Priority:
+            Total:
+    My plan is to concatenate the text of each with their respective numbers after a task is added or deleted.
+
+commit d3bd6d86dfe9d21027c56845b63b8fa849e2af55
+Author: ever dewb <overwatchad2000@gmail.com>
+Date:   Wed Sep 24 11:20:04 2025 -0400
+
+    4-B: Implemented delete + Major refactoring.
+    
+    The delete button now works and removes a task from the list.
+    
+    As I was writing this method, I realized just how hard to read the cod in MainWindow had become, going through layers and layers and layers of JavaFX method calls.
+    Therefore I refactored a few of the more egregious lines like:
+    
+            this.taskList.getSelectionModel().getSelectedItem().setDescription(this.selectedDescription.getText());
+    
+    into their own methods. In the case of the above snippet, all it's doing is updating the selected item's description, so it is now
+    
+            this.updateSelectedDescription();
+    
+    Much less arcane.
+
+commit d33aa9d9f8d0dc2e92cd5d61c47d68e2708cb6e2
+Author: ever dewb <overwatchad2000@gmail.com>
+Date:   Wed Sep 24 10:33:37 2025 -0400
+
+    4-A: Added delete button and method in MainWindow
+    
+    Added the delete button which references the method deleteSelectedTaskPressed on its action.
+    deleteSelectedTaskPressed is empty for now.
+
+commit 33dfadab6c7f481233cf1e940b350c91eae5c838
+Author: ever dewb <overwatchad2000@gmail.com>
+Date:   Wed Sep 24 10:17:15 2025 -0400
+
+    3: Added update description button + all functionality
+    
+    I got on a bit of a roll with this one and forgot to commit each individual letter but, in this order I:
+            A: Made the text area editable and added the update description button to the UI.
+            B: Intuited back in section 1 that because the description of a Task was not to be immutable that I would need a setter for it, so I had already made and tested it.
+            C: Added the updateDescriptionPressed method which activates when the button is pressed and a task is selected, gets the selected task and uses the setDescription method to assign
+            the text in the description area to the Task's description.
+
+commit fd7e9c7f35bc6c4375815a3959b6a3e7e68dbeaf
+Author: ever dewb <overwatchad2000@gmail.com>
+Date:   Wed Sep 24 09:57:11 2025 -0400
+
+    2-B Made GUI display selected task in read only fields.
+    
+    The GUI now displays the selected task description and priority.
+    Also fixed a problem where changing your selection in the tasklist using the keyboard didn't update the description and priority.
+    
+    I am sure there is a better way to do it than I have, like a specific event listener for when the selected item of a list changes, but for now I have two methods:
+    
+            taskSelectedKeyboard and taskSelectedMouse
+    
+    Both of which perform the same functionality, namely updating the displayed description and priority,
+    but one listens for a key to be pressed while the other listens for the taskList to be clicked.
+
+commit f6e584d55400aa34b210b8a91ec2c70fac561638
+Author: ever dewb <overwatchad2000@gmail.com>
+Date:   Wed Sep 24 09:33:42 2025 -0400
+
+    2-A:Text field and area for priority and description
+    
+    Added the text field fxid:selectedPriority which will display the priority of the selected task to the user, along with an appropriate label.
+    Added the text area fxid:selectedDescription which will display the description of the selected task to the user, along with an appropriate label.
+    
+    Also moved all the elements around a bit to make it a bit easier for the user to understand and intuit what each button and field is doing.
+
+commit 0ba9316f257b33583c246f4c364675482c1bb806
+Author: ever dewb <overwatchad2000@gmail.com>
+Date:   Mon Sep 22 13:05:31 2025 -0400
+
+    1-C: Connected UI and Business Logic for Adding Task.
+    
+    Program now adds new Tasks to the tasklist at the bottom left when the 'Add Task' button is pressed.
+    Task list only displays the name for now.
+
+commit 60209c1e73f54e6021a5960f60da757e0c66e512
+Author: ever dewb <overwatchad2000@gmail.com>
+Date:   Mon Sep 22 11:11:41 2025 -0400
+
+    B: Added Task dataclass and tests.
+    
+    A Task is a dataclass that holds 3 String fields:
+            1. Name, the name of the Task.
+            2. Description, a description of the task.
+            3. Priority, the priority of the task.
+    
+    There are simple getters for each field, as well as a setter for the description.
+    Name and priority are final as they will not be changed past initialization.
+    The arguments of the constructor (name, description, priority) and of the description setter (description) cannot be null, or they will throw exceptions.
+    Simple unit tests verify everything working as intended.
+
+commit a90682d85517c302c06efb3c182aca0c69bbfdbb
+Author: ever dewb <overwatchad2000@gmail.com>
+Date:   Mon Sep 22 09:52:43 2025 -0400
+
+    Created base page layout.
+    
+    MainWindow.fxml has been edited to include all specified components.
+    Label and field for name and description, label and combo-box for priority,
+    a submit button, and a listview for viewing stored tasks.
+    
+    MainWindow.java has also been updated to include relevant methods and fields for the above components.
+
+commit 3166aacdae8f5a2a285fea887e9cc534b524c142
+Author: ever dewb <overwatchad2000@gmail.com>
+Date:   Thu Sep 18 12:53:34 2025 -0400
+
+    Added starter Project1 folder.
+    
+    Base project1 with JavaFX working and blank window.
+
+commit 8f1e7162293b63d6928a88b3efe6c99307e78d99
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Sat Sep 13 11:57:37 2025 -0400
+
+    Fully integrated all BillCalculator methods + cleanup
+    
+    Added calcTotal to BillCalculator, fully tested and integrated with BillView.
+    
+    Ensured good JavaDoc present throughout BillCalculator.
+    
+    All tests pass. Lab4 complete.
+
+commit 8b410c55c535066e10f3935a738c633fb73a8da9
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Sat Sep 13 11:39:05 2025 -0400
+
+    Added, tested, and implmented the calcTip method.
+    
+    Added the calcTip() static method to BillCalculator, tested that it returned values and threw exceptions as expected, and implemented it into
+    the BillView, getText() method.
+
+commit 862cde667220d5b938a4209ddfd339101682a522
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Sat Sep 13 11:27:35 2025 -0400
+
+    Added, tested, and implemented calcTax method.
+    
+    The calcTax method of BillCalculator has been added to the class, tested in the TestCalcTax test case,
+    and implemented into the BillView class' getText() method. All tests pass.
+
+commit e36c160d0acc78a05b91868f24f7d0896e30808d
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Sat Sep 13 11:02:41 2025 -0400
+
+    Added, implmented and tested calcSubtotal method.
+    
+    Added BillCalculator class, test package, and TestCalcSubtotal test case.
+    BillCalculator intended to replace all math being done in the BillView class with calls to its static methods.
+    All methods in BillCalculator will take BillItem[] arguments.
+    
+    Edited BillView to make use of the new calcSubtotal method. Because there is currently no method in Bill to return just its array,
+    use the .toArray() method to convert the ArrayList returned by getItems(); into an array.
+
+commit 6463a72978c8cdad4044d09a42a44be38a75c9a4
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Thu Sep 11 12:08:07 2025 -0400
+
+    Made BillItem fields final.
+    
+    BillItem amount and name now final. They are not expected (nor supposed) to change, regardless this makes it explicit.
+
+commit 333155c5644dc9b6bcb800051b7603f80d76ba4e
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Thu Sep 11 12:02:53 2025 -0400
+
+    Added Lab4 Project.
+    
+    ^^^
+
+commit 8f754926f6f071d90175957e4b057e03a9ec135f
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Thu Sep 4 12:47:58 2025 -0400
+
+    Completed displaying bill.
+    
+    Displays the bill using JavaFX.
+    Allows adding an arbitrary number of items.
+
+commit 60366df6b1e48241957b4d004ac48baca951ddc4
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Thu Sep 4 10:41:16 2025 -0400
+
+    Added and merged lab3 and bill.
+    
+    Used JavaFX sample starter and merged with Bill, BillItem and BillView from Lab2, refactored to Lab3.
+    For now, just a basic window with buttons, code behind not connected to JavaFX in any way.
+
+commit a8ff0312cd6ae5875168e31a5a1fd9156002232e
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Thu Sep 4 09:35:29 2025 -0400
+
+    Added new HiLoGame-Sample/
+    
+    ^
+
+commit c79cd84d04ca2d306e1f08d6b4abbc23e369bf36
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Thu Sep 4 09:34:34 2025 -0400
+
+    Removed old HiLoGame-Sample/
+    
+    ^
+
+commit 945f6e9fa6367359c0db3df317289935dafefc92
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Thu Sep 4 09:03:53 2025 -0400
+
+    Finishing touches and added TestBillItemConstructor
+    
+    Added TestBillItemConstructor which ensures that the BillItem Constructor is operating as intented.
+    Cleared minor checkstyle errors in TestGetText and TestAddItem test cases.
+
+commit c259ae86f8f33e2a1f2a8c17ea28f5b2230356c7
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Wed Sep 3 11:17:22 2025 -0400
+
+    Added TestGetText to tests/view.
+    
+    Sets up a bill and adds a single item (cheese).
+    
+    Asserts that the text returned by getText is the same as expected text.
+
+commit a0528806fad58f5eb4ee26e7ee6058c44efb9981
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Wed Sep 3 10:57:06 2025 -0400
+
+    Cleared Checkstyle error.
+    
+    Checkstyle does not like .*; import statements so instead of importing Assertions.*; I import Assertions.assertEquals; and Assertions.assertThrows;
+
+commit f7599a8341872aff9f2706b3cdbf3de3d227a6c1
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Wed Sep 3 10:45:47 2025 -0400
+
+    Fully implemented TestAddItem test class.
+    
+    TestAddItem makes two assertions.
+    
+    testWhenItemIsNull asserts that trying to add a null item to a bill correctly throws IllegalArgumentException.
+    testWhenItemIsValid adds a valid item to a bill, retrieves it via the getItems method of the bill class, and then asserts that the values of the BillItem's fields are the same.
+    The amount field of the BillItem is granted an error of 0.001 to account for floating point weirdness.
+
+commit 553367a308383e3341ce91f424ee5e0912c2060a
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Tue Sep 2 10:07:05 2025 -0400
+
+    Removed old HiLoGame, added new.
+    
+    Removed the old HiLoGame and added the new sample from 9/3/2025 lecture.
+
+commit 12a2a8720d15afa3dc2277dd0bac5d1ddb02e4ac
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Thu Aug 28 12:16:21 2025 -0400
+
+    Added project Lab2 to repo.
+    
+    Added the project.
+
+commit bf2fa35122ee9c9c024c2e481b63d778699236b0
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Thu Aug 28 12:04:32 2025 -0400
+
+    Imported and made functional the JavaFX sample starter.
+    
+    The JavaFX sample starter project creates a window with a text field, button, and text box.
+    The button assigns the contents of the text field to the text box when clicked.
+
+commit 7bd115a8f579835515fb9c0543885884f27907ab
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Tue Aug 26 23:23:26 2025 -0400
+
+    Made DisplayBill more intuitive to use.
+    
+    Originally I had the getText() method in DisplayBill take an ArrayList<BillItem> (which you would get from the getBillItems() method in the Bill class)
+    as an argument, which I realise now was redundant and unintuitive.
+    
+    Now it takes the bill itself as an argument, and uses getBillItems within the method itself, removing the need to import ArrayList to DisplayBill,
+    as well as improving readability and usability of the method.
+    
+    There are various other changes listed in this commit which can be safely ignored as they have nothing to do with Lab1 and are mainly just me
+    trying to get accustomed to git and eclipse.
+
+commit 0408b274a96fcadecf0396ba22931074864afbb9
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Tue Aug 26 09:20:28 2025 -0400
+
+    Refactored magic numbers into constants.
+    
+    Magic numbers for tax percentage (0.1) and tip percentage (0.2) are now appropriately labeled and referenced public constants located in the DisplayBill class.
+
+commit ca693308681c8ad2bc4d19cf92aec0b273c0c676
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Tue Aug 26 09:11:19 2025 -0400
+
+    Added DisplayBill class and refactored getText().
+    
+    The DisplayBill class now handles the functionality of the old Bill class' getText().
+    Added a getItems() method to the Bill class to allow the DisplayBill class to get access to the bill.
+    I did not change any functionality within the BillItem class. There must have been CheckStyle errors that I cleared.
+
+commit f58ff11e14bf0c3d1135ffaa2fc6bdf1d29fd98d
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Thu Aug 21 14:12:48 2025 -0400
+
+    Modified README.md
+    
+    Previously contained unnecessary elements.
+
+commit 2e10581fa13e6b06c998e333018cc20842db9186
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Thu Aug 21 13:51:30 2025 -0400
+
+    Adding Lab1 project to repo.
+    
+    Adds the unzipped unaltered project file to the code directory of the git repo.
+
+commit 98469a715e4b4affae5c9c46b2207bfbdb1df55f
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Thu Aug 21 10:27:00 2025 -0400
+
+    Added HiLoGame project.
+
+commit 0be3be16ae64740af10c9fc4a0246bd751d38fad
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Thu Aug 21 09:53:46 2025 -0400
+
+    Added code directory and example temp file.
+
+commit 05a95a0ed614c257df3691d8e3b60a6759eb4beb
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Thu Aug 21 09:46:23 2025 -0400
+
+    Made an actual README with accurate information.
+
+commit 84ad7a0ad6b87a10237ecdf6bf9122ce04c80de1
+Author: ever dewb <everetttdewberry@gmail.com>
+Date:   Thu Aug 21 09:40:46 2025 -0400
+
+    Added text to the README to test committing, pushing and pulling.
+
+commit 4a6967d01491a82c727842e4d2e4326c119c4360
+Author: unchained102 <everetttdewberry@gmail.com>
+Date:   Tue Aug 19 10:04:38 2025 -0400
+
+    Initial commit
