@@ -7,6 +7,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.KeyEvent;
 import edu.westga.cs1302.Project1.model.Task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -50,9 +51,24 @@ public class MainWindow {
     }
     
     @FXML
-    void taskSelected(MouseEvent event) {
+    void taskSelectedMouse(MouseEvent event) {
     	if (this.taskList.getSelectionModel().getSelectedItem() != null) {
     		this.selectedNameField.setText(this.taskList.getSelectionModel().getSelectedItem().toString());
+    		this.selectedDescription.setText(this.taskList.getSelectionModel().getSelectedItem().getDescription());
+    		this.selectedPriority.setText(this.taskList.getSelectionModel().getSelectedItem().getPriority());
+
+    	} else {
+    		this.selectedNameField.setText("No Task Selected");
+    	}
+    }
+    
+    @FXML
+    void taskSelectedKeyboard(KeyEvent event) {
+    	if (this.taskList.getSelectionModel().getSelectedItem() != null) {
+    		this.selectedNameField.setText(this.taskList.getSelectionModel().getSelectedItem().toString());
+    		this.selectedDescription.setText(this.taskList.getSelectionModel().getSelectedItem().getDescription());
+    		this.selectedPriority.setText(this.taskList.getSelectionModel().getSelectedItem().getPriority());
+
     	} else {
     		this.selectedNameField.setText("No Task Selected");
     	}

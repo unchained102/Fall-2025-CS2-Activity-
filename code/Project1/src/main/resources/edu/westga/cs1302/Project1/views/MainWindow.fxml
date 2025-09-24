@@ -24,7 +24,7 @@
             <Label layoutY="320.0" text="New Task Priority" />
             <ComboBox fx:id="priorityBox" layoutY="360.0" prefWidth="150.0" promptText="Priority" visibleRowCount="10" />
             <Button fx:id="submitButton" layoutX="190.0" layoutY="360.0" mnemonicParsing="false" onAction="#submitPressed" text="Add Task to List" />
-            <ListView fx:id="taskList" layoutX="260.0" layoutY="40.0" onMouseClicked="#taskSelected" prefHeight="180.0" prefWidth="200.0" />
+            <ListView fx:id="taskList" layoutX="260.0" layoutY="40.0" onKeyPressed="#taskSelectedKeyboard" onMouseClicked="#taskSelectedMouse" prefHeight="180.0" prefWidth="200.0" />
             <Label layoutX="260.0" text="Task List" />
             <Label layoutX="640.0" />
             <Label layoutX="520.0" text="Selected Name" />
