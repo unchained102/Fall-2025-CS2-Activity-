@@ -51,6 +51,11 @@ public class MainWindow {
     }
     
     @FXML
+    void deleteSelectedTaskPressed(ActionEvent event) {
+    	
+    }
+    
+    @FXML
     void taskSelectedMouse(MouseEvent event) {
     	if (this.taskList.getSelectionModel().getSelectedItem() != null) {
     		this.selectedNameField.setText(this.taskList.getSelectionModel().getSelectedItem().toString());

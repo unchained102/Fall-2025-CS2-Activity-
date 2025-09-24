@@ -34,6 +34,7 @@
             <Label layoutX="520.0" layoutY="320.0" text="Selected Priority" />
             <TextField fx:id="selectedPriority" editable="false" layoutX="520.0" layoutY="360.0" />
             <Button layoutX="760.0" layoutY="197.0" mnemonicParsing="false" onAction="#updateDescriptionPressed" text="Update Description" />
+            <Button layoutX="298.0" layoutY="240.0" mnemonicParsing="false" onAction="#deleteSelectedTaskPressed" text="Delete Selected task" />
          </children>
       </AnchorPane>
    </children>
