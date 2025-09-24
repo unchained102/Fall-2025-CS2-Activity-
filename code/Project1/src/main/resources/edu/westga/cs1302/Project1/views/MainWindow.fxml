@@ -29,10 +29,11 @@
             <Label layoutX="640.0" />
             <Label layoutX="520.0" text="Selected Name" />
             <TextField id="selectedNameField" fx:id="selectedNameField" editable="false" layoutX="520.0" layoutY="40.0" text="No Task Selected" />
-            <TextArea fx:id="selectedDescription" editable="false" layoutX="520.0" layoutY="120.0" prefHeight="180.0" prefWidth="200.0" />
+            <TextArea fx:id="selectedDescription" layoutX="520.0" layoutY="120.0" prefHeight="180.0" prefWidth="200.0" />
             <Label layoutX="520.0" layoutY="80.0" text="Selected Description" />
             <Label layoutX="520.0" layoutY="320.0" text="Selected Priority" />
             <TextField fx:id="selectedPriority" editable="false" layoutX="520.0" layoutY="360.0" />
+            <Button layoutX="760.0" layoutY="197.0" mnemonicParsing="false" onAction="#updateDescriptionPressed" text="Update Description" />
          </children>
       </AnchorPane>
    </children>

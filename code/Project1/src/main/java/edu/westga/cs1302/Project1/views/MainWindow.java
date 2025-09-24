@@ -74,6 +74,13 @@ public class MainWindow {
     	}
     }
     
+    @FXML
+    void updateDescriptionPressed(ActionEvent event) {
+    	if (this.taskList.getSelectionModel().getSelectedItem() != null) {
+    		this.taskList.getSelectionModel().getSelectedItem().setDescription(this.selectedDescription.getText());
+    	}
+    }
+    
     /**
      * Perform any needed initialization of UI components and underlying objects.
      */
