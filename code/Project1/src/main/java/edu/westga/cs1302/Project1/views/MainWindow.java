@@ -6,6 +6,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import edu.westga.cs1302.Project1.model.Task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,9 +24,18 @@ public class MainWindow {
 
     @FXML
     private TextField nameField;
+    
+    @FXML
+    private TextField selectedNameField;
 
     @FXML
     private ComboBox<String> priorityBox;
+    
+    @FXML
+    private TextField selectedPriority;
+    
+    @FXML
+    private TextArea selectedDescription;
 
     @FXML
     private Button submitButton;
@@ -37,6 +47,15 @@ public class MainWindow {
     void submitPressed(ActionEvent event) {
     	Task task = new Task(this.nameField.getText(), this.descriptionBox.getText(), this.priorityBox.getValue().toString());
     	this.taskList.getItems().add(task);
+    }
+    
+    @FXML
+    void taskSelected(MouseEvent event) {
+    	if (this.taskList.getSelectionModel().getSelectedItem() != null) {
+    		this.selectedNameField.setText(this.taskList.getSelectionModel().getSelectedItem().toString());
+    	} else {
+    		this.selectedNameField.setText("No Task Selected");
+    	}
     }
     
     /**
