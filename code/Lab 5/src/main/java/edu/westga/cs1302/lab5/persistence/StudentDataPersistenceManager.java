@@ -33,8 +33,35 @@ public class StudentDataPersistenceManager {
 		}
 		try (FileWriter writer = new FileWriter(StudentDataPersistenceManager.FILE_LOCATION)) {
 			for (Student currStudent : students) {
-				writer.write(currStudent.getName() + System.lineSeparator());
-				writer.write(currStudent.getGrade() + System.lineSeparator());
+				if (currStudent != null) {
+					writer.write(currStudent.getName() + ',');
+					writer.write(currStudent.getGrade() + System.lineSeparator());
+				}
+			}
+		}
+	}
+	
+	/** Save the students!
+	 * 
+	 * 
+	 * @precondition students != null (an individual student can be null but will be ignored)
+	 * @postcondition Students saved to file defined by path.
+	 * 
+	 * @param path the path of the file to be saved to
+	 * @param students the set of students to save
+	 * @throws IllegalArgumentException if precondition is violated
+	 * @throws IOException Unable to write to FILE_LOCATION
+	 */
+	public static void saveStudentData(Student[] students, String path) throws IOException, IllegalArgumentException {
+		if (students == null) {
+			throw new IllegalArgumentException("must provide an array of students");
+		}
+		try (FileWriter writer = new FileWriter(path)) {
+			for (Student currStudent : students) {
+				if (currStudent != null) {
+					writer.write(currStudent.getName() + ',');
+					writer.write(currStudent.getGrade() + System.lineSeparator());
+				}
 			}
 		}
 	}
