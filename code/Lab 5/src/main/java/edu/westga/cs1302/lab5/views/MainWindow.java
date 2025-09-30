@@ -57,6 +57,7 @@ public class MainWindow {
 			alert.setContentText(error.getMessage());
 			alert.showAndWait();
 		}
+
 	}
 
 	@FXML

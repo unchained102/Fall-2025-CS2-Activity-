@@ -1,4 +1,3 @@
-aaa
-1
-ddd
-3
+Don,100
+Davey,43
+Publius,1000

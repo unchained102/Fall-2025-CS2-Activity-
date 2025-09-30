@@ -31,7 +31,7 @@ public class StudentDataPersistenceManager {
 		if (students == null) {
 			throw new IllegalArgumentException("must provide an array of students");
 		}
-		try (FileWriter writer = new FileWriter(StudentDataPersistenceManager.FILE_LOCATION)) {
+		try (FileWriter writer = new FileWriter(FILE_LOCATION)) {
 			for (Student currStudent : students) {
 				if (currStudent != null) {
 					writer.write(currStudent.getName() + ',');
@@ -77,15 +77,50 @@ public class StudentDataPersistenceManager {
 	 */
 	public static Student[] loadStudentData() throws FileNotFoundException, IOException {
 		ArrayList<Student> students = new ArrayList<Student>();
-		File inputFile = new File(StudentDataPersistenceManager.FILE_LOCATION);
+		File inputFile = new File(FILE_LOCATION);
 		
 		try (Scanner reader = new Scanner(inputFile)) {
 			while (reader.hasNextLine()) {
-				String name = reader.nextLine();
-				if (!reader.hasNextLine()) {
-					throw new IOException("missing grade for " + name);
+				String[] nameAndGrade = reader.nextLine().split(",");
+				if (nameAndGrade.length == 1) {
+					throw new IOException("missing grade for " + nameAndGrade[0]);
 				}
-				int grade = Integer.parseInt(reader.nextLine());
+				String name = nameAndGrade[0];
+				int grade = Integer.parseInt(nameAndGrade[1]);
+				students.add(new Student(name, grade));
+			}
+		} catch (NumberFormatException error) {
+			throw new IOException("grade value was not formatted as an integer (" + error.getMessage() + ")");
+		} catch (IllegalArgumentException error) {
+			throw new IOException(error.getMessage());
+		}
+		
+		return students.toArray(new Student[0]);
+	}
+	
+	/** Load the students!
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * 
+	 * @param path the filepath to be saved to
+	 * @return the set of students loaded
+	 * @throws FileNotFoundException no file exists at FILE_LOCATION
+	 * @throws IOException unable to read file due to formatting issue 
+	 */
+	public static Student[] loadStudentData(String path) throws FileNotFoundException, IOException {
+		ArrayList<Student> students = new ArrayList<Student>();
+		File inputFile = new File(path);
+		
+		try (Scanner reader = new Scanner(inputFile)) {
+			while (reader.hasNextLine()) {
+				String[] nameAndGrade = reader.nextLine().split(",");
+				if (nameAndGrade.length == 1) {
+					throw new IOException("missing grade for " + nameAndGrade[0]);
+				}
+				String name = nameAndGrade[0];
+				int grade = Integer.parseInt(nameAndGrade[1]);
 				students.add(new Student(name, grade));
 			}
 		} catch (NumberFormatException error) {
