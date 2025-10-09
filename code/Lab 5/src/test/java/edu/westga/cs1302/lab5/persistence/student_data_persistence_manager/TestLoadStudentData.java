@@ -21,13 +21,15 @@ class TestLoadStudentData {
 		Student[] testStudents = null;
 		students[0] = ev;
 		try {
-			StudentDataPersistenceManager.saveStudentData(students, "src/test/resources/testData.txt");
+			StudentDataPersistenceManager studentDataPersistenceManager = new StudentDataPersistenceManager();
+			studentDataPersistenceManager.saveStudentData(students, "src/test/resources/testData.txt");
 		} catch (Exception e) {
 			//Will not occur.
 		}
 		
 		try {
-			testStudents = StudentDataPersistenceManager.loadStudentData("src/test/resources/testData.txt");
+			StudentDataPersistenceManager studentDataPersistenceManager = new StudentDataPersistenceManager();
+			testStudents = studentDataPersistenceManager.loadStudentData("src/test/resources/testData.txt");
 		} catch (IOException error) {
 			//Will not occur
 		}
@@ -48,13 +50,16 @@ class TestLoadStudentData {
 		students[1] = tan;
 		students[2] = dewb;
 		try {
-			StudentDataPersistenceManager.saveStudentData(students, "src/test/resources/testData.txt");
+			StudentDataPersistenceManager studentDataPersistenceManager = new StudentDataPersistenceManager();
+			studentDataPersistenceManager.saveStudentData(students, "src/test/resources/testData.txt");
 		} catch (Exception e) {
 			//Will not occur.
 		}
 		
 		try {
-			testStudents = StudentDataPersistenceManager.loadStudentData("src/test/resources/testData.txt");
+			StudentDataPersistenceManager studentDataPersistenceManager = new StudentDataPersistenceManager();
+
+			testStudents = studentDataPersistenceManager.loadStudentData("src/test/resources/testData.txt");
 		} catch (IOException error) {
 			//Will not occur
 		}
@@ -81,7 +86,8 @@ class TestLoadStudentData {
 		}
 		
 		assertThrows(IOException.class, ()-> {
-			StudentDataPersistenceManager.loadStudentData("src/test/resources/testData.txt");
+			StudentDataPersistenceManager studentDataPersistenceManager = new StudentDataPersistenceManager();
+			studentDataPersistenceManager.loadStudentData("src/test/resources/testData.txt");
 		}, "Asserting that missing grade throw IOException.");
 		
 	}
@@ -96,7 +102,8 @@ class TestLoadStudentData {
 		}
 		
 		assertThrows(IOException.class, ()-> {
-			StudentDataPersistenceManager.loadStudentData("src/test/resources/testData.txt");
+			StudentDataPersistenceManager studentDataPersistenceManager = new StudentDataPersistenceManager();
+			studentDataPersistenceManager.loadStudentData("src/test/resources/testData.txt");
 		}, "Asserting that Non-Integer grade throw IOException.");
 		
 	}
@@ -111,7 +118,8 @@ class TestLoadStudentData {
 		}
 		Student[] testStudents;
 		try {
-			testStudents = StudentDataPersistenceManager.loadStudentData("src/test/resources/testData.txt");
+			StudentDataPersistenceManager studentDataPersistenceManager = new StudentDataPersistenceManager();
+			testStudents = studentDataPersistenceManager.loadStudentData("src/test/resources/testData.txt");
 		} catch (Exception e) {
 			//Will not occur.
 			testStudents = new Student[1];
@@ -123,7 +131,8 @@ class TestLoadStudentData {
 	@Test
 	void testNoSuchFile() {		
 		assertThrows(FileNotFoundException.class, ()-> {
-			StudentDataPersistenceManager.loadStudentData("src/test/resources/DNE.txt");
+			StudentDataPersistenceManager studentDataPersistenceManager = new StudentDataPersistenceManager();
+			studentDataPersistenceManager.loadStudentData("src/test/resources/DNE.txt");
 		}, "Asserting that a nonexistent file path throws FileNotFound");
 	}
 }

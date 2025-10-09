@@ -28,7 +28,8 @@ class TestSaveStudentData {
 		students[2] = student3;
 		
 		try {
-			StudentDataPersistenceManager.saveStudentData(students, "src/test/resources/testData.txt");
+			StudentDataPersistenceManager studentDataPersistenceManager = new StudentDataPersistenceManager();
+			studentDataPersistenceManager.saveStudentData(students, "src/test/resources/testData.txt");
 		}
 		catch (IOException e) {
 			//Won't happen during this test.
@@ -53,7 +54,8 @@ class TestSaveStudentData {
 		students[0] = student1;
 
 		try {
-			StudentDataPersistenceManager.saveStudentData(students, "src/test/resources/testData.txt");
+			StudentDataPersistenceManager studentDataPersistenceManager = new StudentDataPersistenceManager();
+			studentDataPersistenceManager.saveStudentData(students, "src/test/resources/testData.txt");
 		}
 		catch (IOException e) {
 			//Won't happen during this test.
@@ -70,7 +72,8 @@ class TestSaveStudentData {
 	@Test
 	void testNoStudents() {
 		try {
-			StudentDataPersistenceManager.saveStudentData(new Student[0], "src/test/resources/testData.txt");
+			StudentDataPersistenceManager studentDataPersistenceManager = new StudentDataPersistenceManager();
+			studentDataPersistenceManager.saveStudentData(new Student[0], "src/test/resources/testData.txt");
 		}
 		catch (IOException e) {
 			//Won't happen during this test.
@@ -90,7 +93,8 @@ class TestSaveStudentData {
 		students[0] = null;
 		students[1] = new Student("Everett", 85);
 		try {
-			StudentDataPersistenceManager.saveStudentData(students, "src/test/resources/testData.txt");
+			StudentDataPersistenceManager studentDataPersistenceManager = new StudentDataPersistenceManager();
+			studentDataPersistenceManager.saveStudentData(students, "src/test/resources/testData.txt");
 		}
 		catch (IOException e) {
 			//Won't happen during this test.
@@ -108,7 +112,8 @@ class TestSaveStudentData {
 	@Test
 	void testNullArray() {
 		assertThrows(IllegalArgumentException.class, ()-> { 
-			StudentDataPersistenceManager.saveStudentData(null, "src/test/resources/testData.txt");
+			StudentDataPersistenceManager studentDataPersistenceManager = new StudentDataPersistenceManager();
+			studentDataPersistenceManager.saveStudentData(null, "src/test/resources/testData.txt");
 		});
 	}
 

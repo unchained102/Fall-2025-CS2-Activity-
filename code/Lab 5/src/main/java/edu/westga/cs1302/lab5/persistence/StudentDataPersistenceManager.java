@@ -14,7 +14,7 @@ import edu.westga.cs1302.lab5.model.Student;
  * @author CS 1302
  * @version Fall 2025
  */
-public class StudentDataPersistenceManager {
+public class StudentDataPersistenceManager extends Persistence {
 	
 	public static final String FILE_LOCATION = "data.txt";
 	
@@ -27,7 +27,8 @@ public class StudentDataPersistenceManager {
 	 * @throws IllegalArgumentException if precondition is violated
 	 * @throws IOException Unable to write to FILE_LOCATION
 	 */
-	public static void saveStudentData(Student[] students) throws IOException, IllegalArgumentException {
+	@Override
+	public void saveStudentData(Student[] students) throws IOException, IllegalArgumentException {
 		if (students == null) {
 			throw new IllegalArgumentException("must provide an array of students");
 		}
@@ -52,7 +53,7 @@ public class StudentDataPersistenceManager {
 	 * @throws IllegalArgumentException if precondition is violated
 	 * @throws IOException Unable to write to FILE_LOCATION
 	 */
-	public static void saveStudentData(Student[] students, String path) throws IOException, IllegalArgumentException {
+	public void saveStudentData(Student[] students, String path) throws IOException, IllegalArgumentException {
 		if (students == null) {
 			throw new IllegalArgumentException("must provide an array of students");
 		}
@@ -75,7 +76,8 @@ public class StudentDataPersistenceManager {
 	 * @throws FileNotFoundException no file exists at FILE_LOCATION
 	 * @throws IOException unable to read file due to formatting issue 
 	 */
-	public static Student[] loadStudentData() throws FileNotFoundException, IOException {
+	@Override
+	public Student[] loadStudentData() throws FileNotFoundException, IOException {
 		ArrayList<Student> students = new ArrayList<Student>();
 		File inputFile = new File(FILE_LOCATION);
 		
@@ -109,7 +111,7 @@ public class StudentDataPersistenceManager {
 	 * @throws FileNotFoundException no file exists at FILE_LOCATION
 	 * @throws IOException unable to read file due to formatting issue 
 	 */
-	public static Student[] loadStudentData(String path) throws FileNotFoundException, IOException {
+	public Student[] loadStudentData(String path) throws FileNotFoundException, IOException {
 		ArrayList<Student> students = new ArrayList<Student>();
 		File inputFile = new File(path);
 		

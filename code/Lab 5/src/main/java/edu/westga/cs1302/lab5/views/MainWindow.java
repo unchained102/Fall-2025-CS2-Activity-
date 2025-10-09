@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import edu.westga.cs1302.lab5.model.GradeCalculator;
 import edu.westga.cs1302.lab5.model.Student;
+import edu.westga.cs1302.lab5.persistence.Persistence;
 import edu.westga.cs1302.lab5.persistence.StudentDataPersistenceManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +23,7 @@ public class MainWindow {
 	@FXML private TextField grade;
 	@FXML private TextField name;
     @FXML private ListView<Student> students;
+    private Persistence persistenceManager;
 
 	@FXML
 	void addStudent(ActionEvent event) {
@@ -49,7 +51,7 @@ public class MainWindow {
 
 	private void loadStudents() {
 		try {
-			Student[] students = StudentDataPersistenceManager.loadStudentData();
+			Student[] students = this.persistenceManager.loadStudentData();
 			this.students.getItems().clear();
 			this.students.getItems().addAll(students);
 		} catch (IOException error) {
@@ -63,7 +65,7 @@ public class MainWindow {
 	@FXML
 	void saveStudents(ActionEvent event) {
 		try {
-			StudentDataPersistenceManager.saveStudentData(this.students.getItems().toArray(new Student[0]));
+			this.persistenceManager.saveStudentData(this.students.getItems().toArray(new Student[0]));
 		} catch (Exception error) {
 			Alert alert = new Alert(Alert.AlertType.ERROR);
 			alert.setContentText(error.getMessage());
@@ -75,6 +77,8 @@ public class MainWindow {
 	 * Perform any needed initialization of UI components and underlying objects.
 	 */
 	public void initialize() {
+		this.persistenceManager = new StudentDataPersistenceManager();
+
 		this.loadStudents();
 	}
 }
