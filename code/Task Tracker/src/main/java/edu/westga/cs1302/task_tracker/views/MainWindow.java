@@ -2,6 +2,8 @@ package edu.westga.cs1302.task_tracker.views;
 
 import java.util.Comparator;
 
+import edu.westga.cs1302.task_tracker.model.Ascending;
+import edu.westga.cs1302.task_tracker.model.Descending;
 import edu.westga.cs1302.task_tracker.model.Task;
 import edu.westga.cs1302.task_tracker.model.Task.TaskPriority;
 import edu.westga.cs1302.task_tracker.model.TaskUtility;
@@ -32,6 +34,8 @@ public class MainWindow {
     @FXML private TextField selectedPriority;
     @FXML private ListView<Task> tasks;
     @FXML private ComboBox<Comparator<Task>> order;
+    private Ascending asc;
+    private Descending dsc;
     
     @FXML 
     void addTask(ActionEvent event) {
@@ -78,6 +82,9 @@ public class MainWindow {
     
     @FXML
     void sortTasks(ActionEvent event) {
+    	if (this.order.getValue() != null) {
+    		this.tasks.getItems().sort(this.order.getValue());
+    	}
 
     }
 
@@ -87,5 +94,10 @@ public class MainWindow {
     public void initialize() {
     	this.priority.getItems().addAll(TaskPriority.HIGH, TaskPriority.MEDIUM, TaskPriority.LOW);
     	this.priority.setValue(this.priority.getItems().get(0));
+    	this.asc = new Ascending();
+    	this.dsc = new Descending();
+    	this.order.getItems().add(this.asc);
+    	this.order.getItems().add(this.dsc);
+
     }
 }
