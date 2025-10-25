@@ -41,7 +41,7 @@ class TestCompare {
 		Task taskB = new Task("Garbage", "Take out the garbage.", TaskPriority.HIGH);
 		Descending desc = new Descending();
 		
-		assertEquals(1, desc.compare(taskA, taskB), "Assert that comparison where task A has lower priority than B returns -1 (Which means they would swap indices during iteration as this is in descending priority order.)");
+		assertTrue(desc.compare(taskA, taskB) > 0, "Assert that comparison where task A has lower priority than B returns positive (Which means they would swap indices during iteration as this is in descending priority order.)");
 	}
 	
 	@Test

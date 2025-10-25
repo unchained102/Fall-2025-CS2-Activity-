@@ -46,6 +46,7 @@ public class MainWindow {
     		alert.setContentText(error.getMessage());
     		alert.showAndWait();
     	}
+    	this.sortTasks();
     }
 
     @FXML
@@ -63,6 +64,7 @@ public class MainWindow {
     	if (selectedTask != null) {
     		this.tasks.getItems().remove(selectedTask);
     	}
+    	this.sortTasks();
     }
 
     @FXML
@@ -82,11 +84,15 @@ public class MainWindow {
     
     @FXML
     void sortTasks(ActionEvent event) {
-    	if (this.order.getValue() != null) {
-    		this.tasks.getItems().sort(this.order.getValue());
-    	}
+    	this.sortTasks();
 
     }
+    
+	void sortTasks() {
+		if (this.order.getValue() != null) {
+    		this.tasks.getItems().sort(this.order.getValue());
+    	}
+	}
 
     /** Perform any needed initialization of UI components and underlying objects.
      * 
