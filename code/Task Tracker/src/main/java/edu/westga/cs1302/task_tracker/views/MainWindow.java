@@ -49,6 +49,7 @@ public class MainWindow {
     void addTask(ActionEvent event) {
     	try {
     		this.tasks.getItems().add(new Task(this.name.getText(), this.description.getText(), this.priority.getValue()));
+    		this.sortTasks(event);
     	} catch (IllegalArgumentException error) {
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setContentText(error.getMessage());
@@ -86,6 +87,7 @@ public class MainWindow {
     	if (selectedTask != null) {
     		this.tasks.getItems().remove(selectedTask);
     	}
+    	this.sortTasks(event);
     }
 
     /** Update the description of the selected task.
@@ -101,6 +103,7 @@ public class MainWindow {
     	if (selectedTask != null) {
     		selectedTask.setDescription(this.selectedDescription.getText());
     	}
+    	this.sortTasks(event);
     }
 
     /** Display the count of tasks for each priority.
