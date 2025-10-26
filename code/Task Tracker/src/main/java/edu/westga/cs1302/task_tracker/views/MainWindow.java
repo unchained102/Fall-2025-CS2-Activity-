@@ -36,6 +36,7 @@ public class MainWindow {
     @FXML private TextArea selectedDescription;
     @FXML private TextField selectedPriority;
     @FXML private ListView<Task> tasks;
+    @FXML private ListView<Task> subTasks;
     @FXML private ComboBox<Comparator<Task>> order;
 
     /** Add a new task with the provided information to the listview.
@@ -52,6 +53,28 @@ public class MainWindow {
     void addTask(ActionEvent event) {
     	try {
     		this.tasks.getItems().add(new Task(this.name.getText(), this.description.getText(), this.priority.getValue()));
+    		this.sortTasks(event);
+    	} catch (IllegalArgumentException error) {
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setContentText(error.getMessage());
+    		alert.showAndWait();
+    	}
+    }
+    
+    /** Add a new subtask with the provided information to the subtask listview.
+     * 
+     * @precondition none
+     * @postcondition A subtask will be added to the subtask listview with 
+     * 							  1) a name matching the text of the name textfield, 
+     * 							  2) a description matching the text of the description textarea,
+     * 							  3) a priority matching the selected value of the priority combobox,
+     * 
+     * @param event we will not use this parameter, only here due to JavaFX Library requirement
+     */
+    @FXML 
+    void addSubTask(ActionEvent event) {
+    	try {
+    		this.subTasks.getItems().add(new Task(this.name.getText(), this.description.getText(), this.priority.getValue()));
     		this.sortTasks(event);
     	} catch (IllegalArgumentException error) {
     		Alert alert = new Alert(AlertType.ERROR);
