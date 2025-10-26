@@ -123,7 +123,14 @@ public class MainWindow {
     	if (selectedTask != null) {
     		this.tasks.getItems().remove(selectedTask);
     	}
-    	this.sortTasks(event);
+    	selectedTask = this.tasks.getSelectionModel().getSelectedItem();
+    	if (selectedTask != null) {
+    		this.subTasks.getItems().setAll(selectedTask.getSubTasks());
+    	} else {
+    		this.subTasks.getItems().setAll();
+    	}
+    		this.sortTasks(event);
+
     }
 
     /** Update the description of the selected task.
