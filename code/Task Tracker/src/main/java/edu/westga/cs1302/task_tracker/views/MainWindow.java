@@ -109,6 +109,27 @@ public class MainWindow {
     		this.subTasks.getItems().setAll(selectedTask.getSubTasks());
     	}
     }
+    
+    /** Display the priority and description of the subtask selected in the listview.
+     * 
+     * @precondition none
+     * @postcondition the description for the selected subtask will be displayed in a pop-up window when clicked.
+     * 
+     * @param event we will not use this parameter, only here due to JavaFX Library requirement
+     */
+    @FXML
+    void selectSubTask(MouseEvent event) {
+    	Task selectedSubTask = this.subTasks.getSelectionModel().getSelectedItem();
+    	if (selectedSubTask != null) {
+    		Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle(selectedSubTask.toString());
+    		alert.setHeaderText("Name: " + selectedSubTask.toString() + System.lineSeparator()
+    		+ "Priority: " + selectedSubTask.getPriority().toString());
+    		alert.setContentText("Description: " + System.lineSeparator() + selectedSubTask.getDescription());
+    		alert.showAndWait();
+
+    	}
+    }
 
     /** Remove the currently selected task.
      * 
