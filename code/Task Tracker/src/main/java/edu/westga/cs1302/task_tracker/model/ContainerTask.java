@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 /**A task with a list of subTasks.
  * 
- * @author me
- * @version 1
+ * @author edewber2@my.westga.edu
+ * @version Fall 2025
  * 
  */
 public class ContainerTask extends Task {
@@ -20,6 +20,7 @@ public class ContainerTask extends Task {
 	 */
 	public ContainerTask(String name, String description, TaskPriority priority) {
 		super(name, description, priority);
+		this.subTasks = new ArrayList<Task>();
 	}
 	
 	@Override
@@ -29,6 +30,9 @@ public class ContainerTask extends Task {
 	
 	@Override
 	public ContainerTask addTask(Task task) {
+		if (task == null) {
+			throw new IllegalArgumentException("select a task");
+		}
 		this.subTasks.add(task);
 		return this;
 	}

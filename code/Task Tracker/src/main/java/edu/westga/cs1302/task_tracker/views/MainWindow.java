@@ -74,14 +74,23 @@ public class MainWindow {
     @FXML 
     void addSubTask(ActionEvent event) {
     	try {
-    		this.subTasks.getItems().add(new Task(this.name.getText(), this.description.getText(), this.priority.getValue()));
-    		this.sortTasks(event);
+    		if (this.tasks.getSelectionModel().getSelectedItem() == null) {
+    			throw new IllegalArgumentException("Select a task before adding a subtask.");
+    		}
+    		int selectedIndex = this.tasks.getSelectionModel().getSelectedIndex();
+    		this.addSubTasksAtSelectedIndex(selectedIndex);
+    		this.tasks.getSelectionModel().select(selectedIndex);
+    		this.subTasks.getItems().setAll(this.tasks.getItems().get(selectedIndex).getSubTasks());
     	} catch (IllegalArgumentException error) {
     		Alert alert = new Alert(AlertType.ERROR);
     		alert.setContentText(error.getMessage());
     		alert.showAndWait();
     	}
     }
+    
+	void addSubTasksAtSelectedIndex(int selectedIndex) {
+		this.tasks.getItems().set(selectedIndex, this.tasks.getSelectionModel().getSelectedItem().addTask(new Task(this.name.getText(), this.description.getText(), this.priority.getValue())));
+	}
 
     /** Display the priority and description of the task selected in the listview.
      * 
@@ -97,6 +106,7 @@ public class MainWindow {
     	if (selectedTask != null) {
     		this.selectedPriority.setText(selectedTask.getPriority().toString());
     		this.selectedDescription.setText(selectedTask.getDescription());
+    		this.subTasks.getItems().setAll(selectedTask.getSubTasks());
     	}
     }
 

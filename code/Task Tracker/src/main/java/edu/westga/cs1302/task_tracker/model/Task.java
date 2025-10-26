@@ -75,6 +75,9 @@ public class Task {
 	 * @return  the container with its newly added task.
 	 */
 	public ContainerTask addTask(Task task) {
+		if (task == null) {
+			throw new IllegalArgumentException("select a task");
+		}
 		ContainerTask taskPlus = new ContainerTask(this.name, this.description, this.priority);
 		taskPlus.addTask(task);
 		return taskPlus;
