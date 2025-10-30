@@ -88,7 +88,7 @@ public class MainWindow {
     	}
     }
     
-	void addSubTasksAtSelectedIndex(int selectedIndex) {
+	private void addSubTasksAtSelectedIndex(int selectedIndex) {
 		this.tasks.getItems().set(selectedIndex, this.tasks.getSelectionModel().getSelectedItem().addTask(new Task(this.name.getText(), this.description.getText(), this.priority.getValue())));
 	}
 
