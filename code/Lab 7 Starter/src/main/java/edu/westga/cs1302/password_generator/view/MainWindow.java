@@ -26,19 +26,14 @@ public class MainWindow {
     
     @FXML
     void initialize() {
-        assert this.mustIncludeDigits != null : "fx:id=\"mustIncludeDigits\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert this.mustIncludeLowerCaseLetters != null : "fx:id=\"mustIncludeLowerCaseLetters\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert this.mustIncludeUpperCaseLetters != null : "fx:id=\"mustIncludeUpperCaseLetters\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert this.minimumLength != null : "fx:id=\"minimumLength\" was not injected: check your FXML file 'MainWindow.fxml'.";
-        assert this.output != null : "fx:id=\"output\" was not injected: check your FXML file 'MainWindow.fxml'.";
-
+        this.javaFXAssertions();
         this.vm = new GeneratorViewModel();
-        this.minimumLength.textProperty().bindBidirectional(this.vm.getMinimumLengthProperty());
-        this.mustIncludeDigits.selectedProperty().bindBidirectional(this.vm.getMustIncludeDigitsProperty());
-        this.mustIncludeLowerCaseLetters.selectedProperty().bindBidirectional(this.vm.getMustIncludeLowerCaseLettersProperty());
-        this.mustIncludeUpperCaseLetters.selectedProperty().bindBidirectional(this.vm.getMustIncludeUpperCaseLettersProperty());
-        this.output.textProperty().bind(this.vm.getOutputProperty());
-        this.generate.setOnAction((event) -> {
+        this.bindProperties();
+        this.activateButtonActionEvent();
+    }
+
+	void activateButtonActionEvent() {
+		this.generate.setOnAction((event) -> {
         	try {
         		this.vm.generatePassword();
         	} catch (NumberFormatException numberError) {
@@ -53,5 +48,21 @@ public class MainWindow {
         		return;
         	}
         });
-    }
+	}
+
+	void bindProperties() {
+		this.minimumLength.textProperty().bindBidirectional(this.vm.getMinimumLengthProperty());
+        this.mustIncludeDigits.selectedProperty().bindBidirectional(this.vm.getMustIncludeDigitsProperty());
+        this.mustIncludeLowerCaseLetters.selectedProperty().bindBidirectional(this.vm.getMustIncludeLowerCaseLettersProperty());
+        this.mustIncludeUpperCaseLetters.selectedProperty().bindBidirectional(this.vm.getMustIncludeUpperCaseLettersProperty());
+        this.output.textProperty().bind(this.vm.getOutputProperty());
+	}
+
+	void javaFXAssertions() {
+		assert this.mustIncludeDigits != null : "fx:id=\"mustIncludeDigits\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert this.mustIncludeLowerCaseLetters != null : "fx:id=\"mustIncludeLowerCaseLetters\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert this.mustIncludeUpperCaseLetters != null : "fx:id=\"mustIncludeUpperCaseLetters\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert this.minimumLength != null : "fx:id=\"minimumLength\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert this.output != null : "fx:id=\"output\" was not injected: check your FXML file 'MainWindow.fxml'.";
+	}
 }
