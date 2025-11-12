@@ -4,9 +4,12 @@ import java.util.Random;
 
 import edu.westga.cs1302.password_generator.model.PasswordGenerator;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
 
 /** Manages utilizing the model and makes properties available to bind the UI elements.
  * 
@@ -18,11 +21,11 @@ public class ViewModel {
 	private BooleanProperty requireDigits;
 	private BooleanProperty requireLowercase;
 	private BooleanProperty requireUppercase;
-	
-	private StringProperty password;
 	private StringProperty errorText;
 	
     private PasswordGenerator generator;
+    
+    private ListProperty<String> passList;
 	
 	/** Initialize the properties for the viewmodel
 	 */
@@ -31,14 +34,22 @@ public class ViewModel {
 		this.requireDigits = new SimpleBooleanProperty(false);
 		this.requireLowercase = new SimpleBooleanProperty(false);
 		this.requireUppercase = new SimpleBooleanProperty(false);
-		
-		this.password = new SimpleStringProperty("");
 		this.errorText = new SimpleStringProperty("");
+		
+		this.passList = new SimpleListProperty<String>(FXCollections.observableArrayList());
 
         Random randomNumberGenerator = new Random();
         this.generator = new PasswordGenerator(randomNumberGenerator.nextLong());
 	}
 
+	/**Return the passlist
+	 * 
+	 * @return the passList
+	 */
+	public ListProperty<String> getPassList() {
+		return this.passList;
+	}
+	
 	/** Return the minimum length property
 	 * 
 	 * @return the minimum length property
@@ -69,14 +80,6 @@ public class ViewModel {
 	 */
 	public BooleanProperty getRequireLowercase() {
 		return this.requireLowercase;
-	}
-
-	/** Return the password property
-	 * 
-	 * @return the password property
-	 */
-	public StringProperty getPassword() {
-		return this.password;
 	}
 
 	/** Return the error text property
@@ -110,7 +113,6 @@ public class ViewModel {
 	 */
 	public void generatePassword() {
     	int minimumLength = -1;
-    	this.password.setValue("");
     	
     	try {
     		minimumLength = Integer.parseInt(this.minimumLength.getValue());
@@ -131,8 +133,7 @@ public class ViewModel {
     	this.generator.setMustHaveAtLeastOneUpperCaseLetter(this.requireUppercase.getValue());
     	
     	String password = this.generator.generatePassword();
-    	
-    	this.password.setValue(password);
+    	this.passList.add(password);
     }
 
 }

@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 /** Codebehind for the MainWindow of the Application.
@@ -19,10 +19,10 @@ public class MainWindow {
     @FXML private CheckBox mustIncludeLowerCaseLetters;
     @FXML private CheckBox mustIncludeUpperCaseLetters;
     @FXML private TextField minimumLength;
-    @FXML private TextArea output;
     @FXML private Label errorTextLabel;
     @FXML private Button generatePasswordButton;
     @FXML private Label minimumLengthError;
+    @FXML private ListView<String> passList;
     private ViewModel vm;
     
     @FXML
@@ -34,7 +34,7 @@ public class MainWindow {
     	this.minimumLength.setText(this.vm.getMinimumLength().getValue());
     	this.vm.getMinimumLength().bind(this.minimumLength.textProperty());
     	
-    	this.output.textProperty().bind(this.vm.getPassword());
+    	this.vm.getPassList().bind(this.passList.itemsProperty());
     	this.errorTextLabel.textProperty().bind(this.vm.getErrorText());
     	
     	this.generatePasswordButton.setOnAction(
@@ -45,11 +45,15 @@ public class MainWindow {
     	
     	this.minimumLength.textProperty().addListener(
     		(observable, oldValue, newValue) -> {
-		       	if (newValue.matches("\\d+")) {
-		       		this.minimumLengthError.setVisible(false);
+		       	if (newValue.matches("^0+$")) {
+		       		this.minimumLengthError.setText(newValue + " is not greater than 0");
+	       			this.minimumLengthError.setVisible(true);
+		       		
 		       	} else if (newValue.matches("-\\d+")) {
 		       		this.minimumLengthError.setText(newValue + " is not greater than 0");
 	       			this.minimumLengthError.setVisible(true);
+		       	} else if (newValue.matches("\\d+")) {
+		       		this.minimumLengthError.setVisible(false);
 		       	} else if (newValue.matches("")) {
 		       		this.minimumLengthError.setText("Please input an integer greater than 0.");
 	       			this.minimumLengthError.setVisible(true);
