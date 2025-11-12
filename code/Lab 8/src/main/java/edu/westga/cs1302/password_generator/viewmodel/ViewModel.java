@@ -87,6 +87,21 @@ public class ViewModel {
 		return this.errorText;
 	}
 
+	/** Verify that minimum length value provided is valid
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @param minimumLength the value to check
+	 * @return true if value is valid
+	 */
+	public boolean verifyMinimumLength(int minimumLength) {
+		if (minimumLength > 0) {
+			return true;
+		}
+		return false;
+	}
+	
 	/** Generates a password using the minimum length, require digit, require lower case, and require upper case property values.
 	 * 
 	 * If a password is successfully generated, the error text property is set to empty string and the password property is set to the password generated.

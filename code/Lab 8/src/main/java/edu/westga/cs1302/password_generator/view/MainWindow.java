@@ -22,7 +22,7 @@ public class MainWindow {
     @FXML private TextArea output;
     @FXML private Label errorTextLabel;
     @FXML private Button generatePasswordButton;
-    
+    @FXML private Label minimumLengthError;
     private ViewModel vm;
     
     @FXML
@@ -41,6 +41,23 @@ public class MainWindow {
     			(event) -> { 
     				this.vm.generatePassword();
     			} 
+    	);
+    	
+    	this.minimumLength.textProperty().addListener(
+    		(observable, oldValue, newValue) -> {
+		       	if (newValue.matches("\\d+")) {
+		       		this.minimumLengthError.setVisible(false);
+		       	} else if (newValue.matches("-\\d+")) {
+		       		this.minimumLengthError.setText(newValue + " is not greater than 0");
+	       			this.minimumLengthError.setVisible(true);
+		       	} else if (newValue.matches("")) {
+		       		this.minimumLengthError.setText("Please input an integer greater than 0.");
+	       			this.minimumLengthError.setVisible(true);
+		       	} else {
+		       		this.minimumLengthError.setText(newValue + " is not an integer.");
+	        		this.minimumLengthError.setVisible(true);
+		       	}
+    		}
     	);
     }
 }
