@@ -1,5 +1,8 @@
 package edu.westga.cs1302.password_generator.viewmodel;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -122,5 +125,28 @@ public class ViewModel {
     	
     	this.passwordHistory.add(password);
     }
-
+	
+	/** Persists the list of passwords into the saveFile, one password per line.
+	 * 
+	 * @precondition saveFile is not null, password list is not empty.
+	 * @postcondition password list is persisted to the selected file.
+	 * 
+	 * @param saveFile the file to be saved to.
+	 */
+	public void persistPasswords(File saveFile) throws IllegalArgumentException {
+		if (this.passwordHistory.isEmpty()) {
+			throw new IllegalArgumentException("No passwords in list.");
+		}
+		if (saveFile == null) {
+			throw new IllegalArgumentException("Invalid file.");
+		}
+		try (FileWriter writer = new FileWriter(saveFile)) {
+			for (String password : this.passwordHistory) {
+				writer.write(password + System.lineSeparator());
+			}
+		} catch (IOException error) {
+			throw new IllegalArgumentException("Error saving passwords.");
+		}
+	} 
+	
 }
