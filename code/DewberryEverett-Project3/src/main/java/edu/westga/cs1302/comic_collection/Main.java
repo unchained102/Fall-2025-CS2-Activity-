@@ -1,4 +1,4 @@
-package edu.westga.cs1302.lab3;
+package edu.westga.cs1302.comic_collection;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,8 +15,8 @@ import java.io.IOException;
  * @version Fall 2025
  */
 public class Main extends Application {
-  private static final String WINDOW_TITLE = "Bill";
-  private static final String GUI_RESOURCE = "views/MainWindow.fxml";
+  private static final String WINDOW_TITLE = "JavaFX Starter Sample";
+  private static final String GUI_RESOURCE = "view/MainWindow.fxml";
 
   /**
    * JavaFX entry point.
