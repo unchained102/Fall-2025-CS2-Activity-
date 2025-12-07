@@ -1,5 +1,6 @@
 package edu.westga.cs1302.comic_collection.view;
 
+import edu.westga.cs1302.comic_collection.model.ComicCollection;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -17,7 +18,7 @@ public class MainWindow {
     private Button addButton;
 
     @FXML
-    private ListView<?> comicCollection;
+    private ListView<ComicCollection> comicCollection;
 
     @FXML
     private TextField comicNameField;
