@@ -1,5 +1,9 @@
 package edu.westga.cs1302.comic_collection.view;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 
 /**
  * Controller class for drawing various things to our canvas window.
@@ -8,6 +12,18 @@ package edu.westga.cs1302.comic_collection.view;
  * @version Fall 2025
  */
 public class MainWindow {
+	
+    @FXML
+    private Button addButton;
+
+    @FXML
+    private ListView<?> comicCollection;
+
+    @FXML
+    private TextField comicNameField;
+
+    @FXML
+    private Button removeButton;
     
     /**
      * Perform any needed initialization of UI components and underlying objects.
