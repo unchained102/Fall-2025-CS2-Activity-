@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import edu.westga.cs1302.comic_collection.model.ComicCollection;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -18,7 +20,7 @@ import javafx.collections.FXCollections;
 public class ComicCollectionViewModel {
 	private StringProperty name;
 	private ListProperty<ComicCollection> collectionList;
-	private ComicCollection selected;
+	private ObjectProperty<ComicCollection> selectedProperty;
 	
 	/** Creates a new ComicCollectionViewModel
 	 * 
@@ -28,9 +30,31 @@ public class ComicCollectionViewModel {
 	public ComicCollectionViewModel() {
 		this.name = new SimpleStringProperty();
 		this.collectionList = new SimpleListProperty<ComicCollection>(FXCollections.observableList(new ArrayList<ComicCollection>()));
+		this.selectedProperty = new SimpleObjectProperty<ComicCollection>();
 		
 	}
 	
+	/**Gets the name
+	 * @return the name
+	 */
+	public StringProperty getName() {
+		return this.name;
+	}
+
+	/**Gets the list
+	 * @return the collectionList
+	 */
+	public ListProperty<ComicCollection> getCollectionList() {
+		return this.collectionList;
+	}
+
+	/**Gets the currently selected ComicCollection's property
+	 * @return the selectedProperty
+	 */
+	public ObjectProperty<ComicCollection> getSelected() {
+		return this.selectedProperty;
+	}
+
 	/** Adds a ComicCollection to the list based on the name in the text field.
 	 * 
 	 *@precondition name != null && name != ""
@@ -52,8 +76,9 @@ public class ComicCollectionViewModel {
 	 *@postcondition ComicCollection selected will be removed from the collectionList.
 	 */
 	public void removeCollectionFromList() {
-		if (this.selected != null) {
-			this.collectionList.remove(this.selected);
+		if (this.selectedProperty.get() == null) {
+			throw new IllegalArgumentException("Please select a Collection");
 		}
+		this.collectionList.remove(this.selectedProperty.get());
 	}
 }
