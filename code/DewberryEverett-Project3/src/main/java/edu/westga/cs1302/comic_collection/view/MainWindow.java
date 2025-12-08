@@ -46,8 +46,6 @@ public class MainWindow {
 
     @FXML
     private TextField collectionNameField;
-
-    
     
     @FXML
     private MenuItem contextRemoveCollection;
@@ -65,13 +63,16 @@ public class MainWindow {
     	this.ccvm = new ComicCollectionViewModel();
     	this.bindProperties();
     	this.bindBehaviour();
+    	this.bindAddComicButton();
     	
     }
     
     private void bindProperties() {
     	this.ccvm.getName().bind(this.collectionNameField.textProperty());
-    	this.comicCollectionList.setItems(this.ccvm.getCollectionList());
+    	this.comicCollectionList.itemsProperty().bind(this.ccvm.getCollectionList());
     	this.ccvm.getSelected().bind(this.comicCollectionList.getSelectionModel().selectedItemProperty());
+    	this.comicList.itemsProperty().bind(this.ccvm.getSelectedCollectionListProperty());
+    	this.ccvm.getSelectedComicProperty().bind(this.comicList.getSelectionModel().selectedItemProperty());
     }
     
     private void bindBehaviour() {
@@ -109,6 +110,28 @@ public class MainWindow {
     		this.addCollectionButton.setDisable(newVal.equals(""));
     	});
     	
+    	this.removeComicButton.setOnAction((event) -> {
+    		try {
+				this.ccvm.removeComicFromSelectedCollection();
+			} catch (IllegalArgumentException error) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setContentText("Unable to Remove Collection: " + error.getMessage());
+				alert.showAndWait();
+			}
+    	});
+    	
+    	this.contextRemoveComic.setOnAction((event) -> {
+    		try {
+				this.ccvm.removeComicFromSelectedCollection();
+			} catch (IllegalArgumentException error) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setContentText("Unable to Remove Collection: " + error.getMessage());
+				alert.showAndWait();
+			}
+    	});
+    }
+    
+    private void bindAddComicButton() {
     	this.addComicButton.setOnAction((event) -> {
     		FXMLLoader loader = new FXMLLoader();
         	loader.setLocation(Main.class.getResource(Main.ADD_COMIC_WINDOW));
@@ -122,15 +145,16 @@ public class MainWindow {
     	    	addComicWindow.initModality(Modality.APPLICATION_MODAL);
     	    	
     	    	AddComicWindow controller = (AddComicWindow) loader.getController();
+    	    	controller.setViewModel(this.ccvm);
     	    	
     	    	addComicWindow.showAndWait();
     		} catch (IOException error) {
     			Alert alert = new Alert(AlertType.ERROR);
-    			alert.setContentText("Failed to load options window. Error loading UI components;");
+    			alert.setContentText("Failed to load comic window. Error loading UI components;");
     			alert.showAndWait();
     		} catch (IllegalArgumentException error) {
     			Alert alert = new Alert(AlertType.ERROR);
-    			alert.setContentText("Failed to load options window. Error passing password generator to options window.");
+    			alert.setContentText("Failed to load comic window. Error passing viewmodel to options window.");
     			alert.showAndWait();
     		}
     	});

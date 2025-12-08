@@ -13,6 +13,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**ViewModel class for ComicCollection
  * 
@@ -42,7 +43,16 @@ public class ComicCollectionViewModel {
 		this.issueNumber = new SimpleIntegerProperty();
 		this.selectedComicProperty = new SimpleObjectProperty<Comic>();
 		
-	}
+		this.selectedCollectionProperty.addListener((obs, oldCol, newCol) -> {
+		    if (newCol != null) {
+		        // Wrap the ArrayList in an ObservableList
+		        ObservableList<Comic> observableList = FXCollections.observableArrayList(newCol.getCollection());
+		        this.selectedCollectionListProperty.set(observableList);
+		    } else {
+		        this.selectedCollectionListProperty.set(FXCollections.observableArrayList());
+		    }
+		});
+    }
 	
 	/**Gets the name
 	 * @return the name
@@ -63,6 +73,34 @@ public class ComicCollectionViewModel {
 	 */
 	public ObjectProperty<ComicCollection> getSelected() {
 		return this.selectedCollectionProperty;
+	}
+
+	/** gets the title
+	 * @return the title
+	 */
+	public StringProperty getTitle() {
+		return this.title;
+	}
+
+	/** gets the issueNumber
+	 * @return the issueNumber
+	 */
+	public IntegerProperty getIssueNumber() {
+		return this.issueNumber;
+	}
+
+	/** gets the selectedCollectionListProperty
+	 * @return the selectedCollectionListProperty
+	 */
+	public ListProperty<Comic> getSelectedCollectionListProperty() {
+		return this.selectedCollectionListProperty;
+	}
+
+	/** gets the selectedComicProperty
+	 * @return the selectedComicProperty
+	 */
+	public ObjectProperty<Comic> getSelectedComicProperty() {
+		return this.selectedComicProperty;
 	}
 
 	/** Adds a ComicCollection to the list based on the name in the text field.
@@ -96,10 +134,29 @@ public class ComicCollectionViewModel {
 	 * 
 	 */
 	public void addComicToSelectedCollection() {
-		if (this.selectedCollectionProperty.get() == null) {
-			throw new IllegalArgumentException("Please select a collection to add a comic.");
-		}
-		this.selectedCollectionProperty.get().getCollection().add(new Comic(this.title.get(), this.issueNumber.get()));
-		this.selectedCollectionListProperty = new SimpleListProperty<Comic>(FXCollections.observableList(this.selectedCollectionProperty.get().getCollection()));
+	    ComicCollection selected = this.selectedCollectionProperty.get();
+	    if (selected == null) {
+	        throw new IllegalArgumentException("Please select a collection to add a comic.");
+	    }
+
+	    Comic newComic = new Comic(this.title.get(), this.issueNumber.get());
+
+	    selected.getCollection().add(newComic);
+
+	    this.selectedCollectionListProperty.add(newComic);
+	}
+	
+	/** Removes the comic from the selected collection.
+	 * 
+	 */
+	public void removeComicFromSelectedCollection() {
+	    ComicCollection selected = this.selectedCollectionProperty.get();
+	    if (selected == null) {
+	        throw new IllegalArgumentException("Please select a collection to add a comic.");
+	    }
+
+	    selected.getCollection().remove(this.selectedComicProperty.get());
+
+	    this.selectedCollectionListProperty.remove(this.selectedComicProperty.get());
 	}
 }
