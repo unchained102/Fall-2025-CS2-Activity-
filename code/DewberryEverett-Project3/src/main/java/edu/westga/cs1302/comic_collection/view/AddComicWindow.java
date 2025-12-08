@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.util.converter.NumberStringConverter;
 import javafx.scene.Node;
@@ -32,7 +33,7 @@ public class AddComicWindow {
     
     @FXML
     void initialize() {
-
+    	this.addComicButton.setDisable(true);
     }
     
     private void bindBehavior() {
@@ -49,6 +50,26 @@ public class AddComicWindow {
 		this.cancelButton.setOnAction((event) -> {
 			((Node) (event.getSource())).getScene().getWindow().hide();
 		});
+		
+		this.comicTitleField.textProperty().addListener((observable, oldVal, newVal) -> {
+			if (!this.issueNumberField.getText().isEmpty()) {
+				this.addComicButton.setDisable(newVal.equals(""));
+			}
+    	});
+		
+		this.issueNumberField.textProperty().addListener((observable, oldVal, newVal) -> {
+			if (!this.comicTitleField.getText().isEmpty()) {
+				this.addComicButton.setDisable(newVal.equals(""));
+			}
+    	});
+		
+		this.issueNumberField.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+		    String character = event.getCharacter();
+		    if (!character.matches("[0-9]")) { 
+		        event.consume(); 
+		    }
+		});
+		
 	}
     
     private void bindProperties() {

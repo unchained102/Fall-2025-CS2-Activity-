@@ -129,6 +129,8 @@ public class MainWindow {
 				alert.showAndWait();
 			}
     	});
+  
+    	
     }
     
     private void bindAddComicButton() {
