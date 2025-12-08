@@ -38,6 +38,7 @@ public class MainWindow {
      * Perform any needed initialization of UI components and underlying objects.
      */
     public void initialize() {
+    	this.addButton.setDisable(true);
     	this.ccvm = new ComicCollectionViewModel();
     	this.bindProperties();
     	this.bindBehaviour();
@@ -79,6 +80,10 @@ public class MainWindow {
 				alert.setContentText("Unable to Remove Collection: " + error.getMessage());
 				alert.showAndWait();
 			}
+    	});
+    	
+    	this.comicNameField.textProperty().addListener((observable, oldVal, newVal) -> {
+    		this.addButton.setDisable(newVal.equals(""));
     	});
     }
     
