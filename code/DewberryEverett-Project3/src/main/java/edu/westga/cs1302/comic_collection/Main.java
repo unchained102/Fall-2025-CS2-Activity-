@@ -15,8 +15,12 @@ import java.io.IOException;
  * @version Fall 2025
  */
 public class Main extends Application {
-  private static final String WINDOW_TITLE = "JavaFX Starter Sample";
-  private static final String GUI_RESOURCE = "view/MainWindow.fxml";
+  public static final String ADD_COMIC_WINDOW_TITLE = "Comic Collection";
+  public static final String ADD_COMIC_WINDOW = "view/AddComicWindow.fxml";
+  private static final String MAIN_WINDOW_TITLE = "Comic Collection";
+  private static final String MAIN_WINDOW = "view/MainWindow.fxml";
+  
+
 
   /**
    * JavaFX entry point.
@@ -28,9 +32,9 @@ public class Main extends Application {
    */
   @Override
   public void start(Stage primaryStage) throws IOException {
-    Parent parent = FXMLLoader.load(getClass().getResource(Main.GUI_RESOURCE));
+    Parent parent = FXMLLoader.load(getClass().getResource(Main.MAIN_WINDOW));
     Scene scene = new Scene(parent);
-    primaryStage.setTitle(WINDOW_TITLE);
+    primaryStage.setTitle(MAIN_WINDOW_TITLE);
     primaryStage.setScene(scene);
     primaryStage.show();
   }

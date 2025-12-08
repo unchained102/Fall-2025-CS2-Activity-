@@ -24,8 +24,6 @@ public class ComicCollectionViewModel {
 	
 	/** Creates a new ComicCollectionViewModel
 	 * 
-	 * @author me
-	 * @version 1
 	 */
 	public ComicCollectionViewModel() {
 		this.name = new SimpleStringProperty();

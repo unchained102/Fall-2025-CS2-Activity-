@@ -1,16 +1,25 @@
 package edu.westga.cs1302.comic_collection.view;
 
+import java.io.IOException;
+
+import edu.westga.cs1302.comic_collection.Main;
+import edu.westga.cs1302.comic_collection.model.Comic;
 import edu.westga.cs1302.comic_collection.model.ComicCollection;
 import edu.westga.cs1302.comic_collection.viewmodel.ComicCollectionViewModel;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
  
-/** Controller class for drawing various things to our canvas window.
+/** The code behind the main window for the Comic Collection application.
  * 
  * @author CS 1302
  * @version Fall 2025
@@ -18,19 +27,33 @@ import javafx.scene.control.Alert.AlertType;
 public class MainWindow {
 	
     @FXML
-    private Button addButton;
-
-    @FXML
-    private ListView<ComicCollection> comicCollection;
-
-    @FXML
-    private TextField comicNameField;
-
-    @FXML
-    private Button removeButton;
+    private Button addCollectionButton;
     
     @FXML
-    private MenuItem contextRemove;
+    private Button removeCollectionButton;
+    
+    @FXML
+    private Button addComicButton;
+    
+    @FXML
+    private Button removeComicButton;
+
+    @FXML
+    private ListView<ComicCollection> comicCollectionList;
+    
+    @FXML
+    private ListView<Comic> comicList;
+
+    @FXML
+    private TextField collectionNameField;
+
+    
+    
+    @FXML
+    private MenuItem contextRemoveCollection;
+    
+    @FXML
+    private MenuItem contextRemoveComic;
     
     private ComicCollectionViewModel ccvm;
     
@@ -38,7 +61,7 @@ public class MainWindow {
      * Perform any needed initialization of UI components and underlying objects.
      */
     public void initialize() {
-    	this.addButton.setDisable(true);
+    	this.addCollectionButton.setDisable(true);
     	this.ccvm = new ComicCollectionViewModel();
     	this.bindProperties();
     	this.bindBehaviour();
@@ -46,13 +69,13 @@ public class MainWindow {
     }
     
     private void bindProperties() {
-    	this.ccvm.getName().bind(this.comicNameField.textProperty());
-    	this.comicCollection.setItems(this.ccvm.getCollectionList());
-    	this.ccvm.getSelected().bind(this.comicCollection.getSelectionModel().selectedItemProperty());
+    	this.ccvm.getName().bind(this.collectionNameField.textProperty());
+    	this.comicCollectionList.setItems(this.ccvm.getCollectionList());
+    	this.ccvm.getSelected().bind(this.comicCollectionList.getSelectionModel().selectedItemProperty());
     }
     
     private void bindBehaviour() {
-    	this.addButton.setOnAction((event) -> {
+    	this.addCollectionButton.setOnAction((event) -> {
     		try {
 				this.ccvm.addCollectionToList();
 			} catch (IllegalArgumentException error) {
@@ -62,7 +85,7 @@ public class MainWindow {
 			}
     	});
     	
-    	this.removeButton.setOnAction((event) -> {
+    	this.removeCollectionButton.setOnAction((event) -> {
     		try {
 				this.ccvm.removeCollectionFromList();
 			} catch (IllegalArgumentException error) {
@@ -72,7 +95,7 @@ public class MainWindow {
 			}
     	});
     	
-    	this.contextRemove.setOnAction((event) -> {
+    	this.contextRemoveCollection.setOnAction((event) -> {
     		try {
 				this.ccvm.removeCollectionFromList();
 			} catch (IllegalArgumentException error) {
@@ -82,8 +105,34 @@ public class MainWindow {
 			}
     	});
     	
-    	this.comicNameField.textProperty().addListener((observable, oldVal, newVal) -> {
-    		this.addButton.setDisable(newVal.equals(""));
+    	this.collectionNameField.textProperty().addListener((observable, oldVal, newVal) -> {
+    		this.addCollectionButton.setDisable(newVal.equals(""));
+    	});
+    	
+    	this.addComicButton.setOnAction((event) -> {
+    		FXMLLoader loader = new FXMLLoader();
+        	loader.setLocation(Main.class.getResource(Main.ADD_COMIC_WINDOW));
+        	try {
+    			loader.load();
+    	    	Parent parent = loader.getRoot();
+    	    	Scene scene = new Scene(parent);
+    	    	Stage addComicWindow = new Stage();
+    	    	addComicWindow.setTitle("Add a Comic");
+    	    	addComicWindow.setScene(scene);
+    	    	addComicWindow.initModality(Modality.APPLICATION_MODAL);
+    	    	
+    	    	AddComicWindow controller = (AddComicWindow) loader.getController();
+    	    	
+    	    	addComicWindow.showAndWait();
+    		} catch (IOException error) {
+    			Alert alert = new Alert(AlertType.ERROR);
+    			alert.setContentText("Failed to load options window. Error loading UI components;");
+    			alert.showAndWait();
+    		} catch (IllegalArgumentException error) {
+    			Alert alert = new Alert(AlertType.ERROR);
+    			alert.setContentText("Failed to load options window. Error passing password generator to options window.");
+    			alert.showAndWait();
+    		}
     	});
     }
     
