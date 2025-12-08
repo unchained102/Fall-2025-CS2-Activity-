@@ -1,5 +1,7 @@
 package edu.westga.cs1302.comic_collection.model;
 
+import java.util.ArrayList;
+
 /** Represents a comid collection
  * 
  * @author Me
@@ -7,6 +9,7 @@ package edu.westga.cs1302.comic_collection.model;
  */
 public class ComicCollection {
 	private String name;
+	private ArrayList<Comic> collection;
 	
 	/** Creates a new ComicCollection with the given name.
 	 * 
@@ -21,6 +24,7 @@ public class ComicCollection {
 		}
 		
 		this.name = name;
+		this.collection =  new ArrayList<Comic>();
 	}
 	
 	/** Name getter
@@ -31,6 +35,13 @@ public class ComicCollection {
 		return this.name;
 	}
 	
+	/** gets the list of comics in the collection.
+	 * @return the collection
+	 */
+	public ArrayList<Comic> getCollection() {
+		return this.collection;
+	}
+
 	@Override
 	public String toString() {
 		return this.name;

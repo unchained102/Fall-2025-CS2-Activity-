@@ -2,6 +2,7 @@ package edu.westga.cs1302.comic_collection.viewmodel;
 
 import java.util.ArrayList;
 
+import edu.westga.cs1302.comic_collection.model.Comic;
 import edu.westga.cs1302.comic_collection.model.ComicCollection;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -75,8 +76,22 @@ public class ComicCollectionViewModel {
 	 */
 	public void removeCollectionFromList() {
 		if (this.selectedProperty.get() == null) {
-			throw new IllegalArgumentException("Please select a Collection");
+			throw new IllegalArgumentException("Please select a Collection to remove it.");
 		}
 		this.collectionList.remove(this.selectedProperty.get());
+	}
+	
+	/** Adds the comic to the selected collection.
+	 * 
+	 * @param comic the comic to be added
+	 */
+	public void addComicToSelectedCollection(Comic comic) {
+		if (comic == null) {
+			throw new IllegalArgumentException("comic cannot be null.");
+		}
+		if (this.selectedProperty.get() == null) {
+			throw new IllegalArgumentException("Please select a collection to add a comic.");
+		}
+		this.selectedProperty.get().getCollection().add(comic);
 	}
 }
