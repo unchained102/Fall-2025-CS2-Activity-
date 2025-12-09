@@ -49,6 +49,7 @@ public class ComicCollectionViewModel {
 		this.selectedComicProperty = new SimpleObjectProperty<Comic>();
 		this.titleMap = new HashMap<String, Comic>();
 		this.numberMap = new HashMap<Integer, Comic>();
+		this.searchText = new SimpleStringProperty();
 		
 		this.selectedCollectionProperty.addListener((obs, oldCol, newCol) -> {
 		    if (newCol != null) {

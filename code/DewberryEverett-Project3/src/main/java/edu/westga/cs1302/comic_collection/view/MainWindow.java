@@ -136,6 +136,18 @@ public class MainWindow {
 				alert.showAndWait();
 			}
     	});
+    	
+    	this.searchButton.setOnAction((event) -> {
+    		try {
+    			Alert alert = new Alert(AlertType.INFORMATION);
+    			alert.setContentText(this.ccvm.findComic());
+    			alert.showAndWait();
+			} catch (IllegalArgumentException error) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setContentText("Unable to find comic" + error.getMessage());
+				alert.showAndWait();
+			}
+    	});
     }
     
     private void bindAddComicButton() {
