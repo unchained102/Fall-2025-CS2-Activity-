@@ -43,5 +43,6 @@
       <Label layoutX="309.0" layoutY="23.0" text="Find a Comic" />
       <TextField fx:id="searchBar" layoutX="310.0" layoutY="41.0" />
       <Button fx:id="searchButton" layoutX="460.0" layoutY="41.0" mnemonicParsing="false" text="Search" />
+      <Label fx:id="searchErrorText" layoutX="314.0" layoutY="68.0" textFill="RED" />
    </children>
 </AnchorPane>

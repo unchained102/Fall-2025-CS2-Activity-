@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
@@ -59,6 +60,9 @@ public class MainWindow {
     @FXML
     private Button searchButton;
     
+    @FXML
+    private Label searchErrorText;
+    
     private ComicCollectionViewModel ccvm;
     
     /**
@@ -66,10 +70,12 @@ public class MainWindow {
      */
     public void initialize() {
     	this.addCollectionButton.setDisable(true);
+    	this.searchButton.setDisable(true);
     	this.ccvm = new ComicCollectionViewModel();
     	this.bindProperties();
     	this.bindBehaviour();
     	this.bindAddComicButton();
+    	this.bindRemoveComicBehavior();
     	
     }
     
@@ -117,7 +123,30 @@ public class MainWindow {
     		this.addCollectionButton.setDisable(newVal.equals(""));
     	});
     	
-    	this.removeComicButton.setOnAction((event) -> {
+    	this.searchButton.setOnAction((event) -> {
+    		try {
+    			Alert alert = new Alert(AlertType.INFORMATION);
+    			alert.setContentText(this.ccvm.findComic());
+    			alert.showAndWait();
+			} catch (IllegalArgumentException error) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setContentText("Unable to find comic" + error.getMessage());
+				alert.showAndWait();
+			}
+    	});
+    	
+    	this.searchBar.textProperty().addListener((observable, oldVal, newVal) -> {
+    		this.searchErrorText.setText(this.ccvm.badSearchCriteria());
+    		if (this.searchErrorText.textProperty().get().isEmpty()) {
+    			this.searchButton.setDisable(false);
+    		} else {
+    			this.searchButton.setDisable(true);
+    		}
+    	});
+    }
+
+	private void bindRemoveComicBehavior() {
+		this.removeComicButton.setOnAction((event) -> {
     		try {
 				this.ccvm.removeComicFromSelectedCollection();
 			} catch (IllegalArgumentException error) {
@@ -136,19 +165,7 @@ public class MainWindow {
 				alert.showAndWait();
 			}
     	});
-    	
-    	this.searchButton.setOnAction((event) -> {
-    		try {
-    			Alert alert = new Alert(AlertType.INFORMATION);
-    			alert.setContentText(this.ccvm.findComic());
-    			alert.showAndWait();
-			} catch (IllegalArgumentException error) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setContentText("Unable to find comic" + error.getMessage());
-				alert.showAndWait();
-			}
-    	});
-    }
+	}
     
     private void bindAddComicButton() {
     	this.addComicButton.setOnAction((event) -> {

@@ -212,4 +212,22 @@ public class ComicCollectionViewModel {
 		}
 		return "No comic found.";
 	}
+	
+	/** Returns an error message for input validation of search bar.
+	 * 
+	 * @return message the message to be delivered. No message if all good.
+	 */
+	public String badSearchCriteria() {
+		String message;
+		
+		
+		if (!(Comic.checkIssueNumber(this.searchText.getValue()) || Comic.checkName(this.searchText.getValue()))) {
+			message = "Bad search criteria. Please input a number or comic title.";
+			return message;
+		}
+		
+		message = "";
+		return message;
+		
+	}
 }
