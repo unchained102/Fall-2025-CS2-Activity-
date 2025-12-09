@@ -40,5 +40,8 @@
       <Label layoutX="309.0" layoutY="120.0" text="Comics" />
       <Button fx:id="addComicButton" layoutX="309.0" layoutY="349.0" mnemonicParsing="false" text="Add Comic" />
       <Button fx:id="removeComicButton" layoutX="390.0" layoutY="349.0" mnemonicParsing="false" text="Remove Comic" />
+      <Label layoutX="309.0" layoutY="23.0" text="Find a Comic" />
+      <TextField fx:id="searchBar" layoutX="310.0" layoutY="41.0" />
+      <Button fx:id="searchButton" layoutX="460.0" layoutY="41.0" mnemonicParsing="false" text="Search" />
    </children>
 </AnchorPane>

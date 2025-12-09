@@ -53,6 +53,12 @@ public class MainWindow {
     @FXML
     private MenuItem contextRemoveComic;
     
+    @FXML
+    private TextField searchBar;
+    
+    @FXML
+    private Button searchButton;
+    
     private ComicCollectionViewModel ccvm;
     
     /**
@@ -73,6 +79,7 @@ public class MainWindow {
     	this.ccvm.getSelected().bind(this.comicCollectionList.getSelectionModel().selectedItemProperty());
     	this.comicList.itemsProperty().bind(this.ccvm.getSelectedCollectionListProperty());
     	this.ccvm.getSelectedComicProperty().bind(this.comicList.getSelectionModel().selectedItemProperty());
+    	this.ccvm.getSearchText().bind(this.searchBar.textProperty());
     }
     
     private void bindBehaviour() {
@@ -129,8 +136,6 @@ public class MainWindow {
 				alert.showAndWait();
 			}
     	});
-  
-    	
     }
     
     private void bindAddComicButton() {

@@ -42,9 +42,37 @@ public class Comic {
 	public int getIssueNumber() {
 		return this.issueNumber;
 	}
+	
+	/** Checks if is a title
+	 * Must have at least one character and can have only letters
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @param name the text to be checked
+	 * @return true 	if name matches expected style
+	 * 		   false 	if name does not match expected style
+	 */
+	public static boolean checkName(String name) {
+		return name != null && name.matches("[a-zA-Z]+");
+	}
+	
+	/** Checks if an entered search is a number
+	 * Must have at least one number
+	 * 
+	 * @precondition none
+	 * @postcondition none
+	 * 
+	 * @param name the text to be checked
+	 * @return true 	if name matches expected style
+	 * 		   false 	if name does not match expected style
+	 */
+	public static boolean checkIssueNumber(String name) {
+		return name != null && name.matches("[0-9]+");
+	}
 
 	@Override
 	public String toString() {
-		return this.title;
+		return this.title + " issue #" + this.issueNumber;
 	}
 }

@@ -1,6 +1,8 @@
 package edu.westga.cs1302.comic_collection.viewmodel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import edu.westga.cs1302.comic_collection.model.Comic;
 import edu.westga.cs1302.comic_collection.model.ComicCollection;
@@ -30,6 +32,9 @@ public class ComicCollectionViewModel {
 	private IntegerProperty issueNumber;
 	private ListProperty<Comic> selectedCollectionListProperty;
 	private ObjectProperty<Comic> selectedComicProperty;
+	private StringProperty searchText;
+	private Map<Integer, Comic> numberMap;
+	private Map<String, Comic> titleMap;
 	
 	/** Creates a new ComicCollectionViewModel
 	 * 
@@ -42,11 +47,12 @@ public class ComicCollectionViewModel {
 		this.title = new SimpleStringProperty();
 		this.issueNumber = new SimpleIntegerProperty();
 		this.selectedComicProperty = new SimpleObjectProperty<Comic>();
+		this.titleMap = new HashMap<String, Comic>();
+		this.numberMap = new HashMap<Integer, Comic>();
 		
 		this.selectedCollectionProperty.addListener((obs, oldCol, newCol) -> {
 		    if (newCol != null) {
-		        // Wrap the ArrayList in an ObservableList
-		        ObservableList<Comic> observableList = FXCollections.observableArrayList(newCol.getCollection());
+		    	ObservableList<Comic> observableList = FXCollections.observableArrayList(newCol.getCollection());
 		        this.selectedCollectionListProperty.set(observableList);
 		    } else {
 		        this.selectedCollectionListProperty.set(FXCollections.observableArrayList());
@@ -134,14 +140,24 @@ public class ComicCollectionViewModel {
 	 * 
 	 */
 	public void addComicToSelectedCollection() {
-	    ComicCollection selected = this.selectedCollectionProperty.get();
-	    if (selected == null) {
+	    
+	    if (this.selectedCollectionProperty.get() == null) {
 	        throw new IllegalArgumentException("Please select a collection to add a comic.");
 	    }
-
+	    
+	    if (this.titleMap.containsKey(this.title.get())) {
+			throw new IllegalArgumentException("Comic with name " + this.title.get() + " already on file.");
+		}
+		if (this.numberMap.containsKey(this.issueNumber.get())) {
+			throw new IllegalArgumentException("Contact with number " + this.issueNumber.get() + " already on file.");
+		}
+		
 	    Comic newComic = new Comic(this.title.get(), this.issueNumber.get());
+	    
+	    this.numberMap.put(this.getIssueNumber().get(), newComic);
+	    this.titleMap.put(this.getTitle().get(), newComic);
 
-	    selected.getCollection().add(newComic);
+	    this.selectedCollectionProperty.get().getCollection().add(newComic);
 
 	    this.selectedCollectionListProperty.add(newComic);
 	}
@@ -158,5 +174,12 @@ public class ComicCollectionViewModel {
 	    selected.getCollection().remove(this.selectedComicProperty.get());
 
 	    this.selectedCollectionListProperty.remove(this.selectedComicProperty.get());
+	}
+
+	/** Returns the searchText property
+	 * @return the searchText
+	 */
+	public StringProperty getSearchText() {
+		return this.searchText;
 	}
 }
