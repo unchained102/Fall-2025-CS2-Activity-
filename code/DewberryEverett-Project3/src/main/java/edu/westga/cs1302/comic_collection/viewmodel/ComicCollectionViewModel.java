@@ -149,7 +149,7 @@ public class ComicCollectionViewModel {
 			throw new IllegalArgumentException("Comic with name " + this.title.get() + " already on file.");
 		}
 		if (this.numberMap.containsKey(this.issueNumber.get())) {
-			throw new IllegalArgumentException("Contact with number " + this.issueNumber.get() + " already on file.");
+			throw new IllegalArgumentException("Comic with number " + this.issueNumber.get() + " already on file.");
 		}
 		
 	    Comic newComic = new Comic(this.title.get(), this.issueNumber.get());
@@ -172,6 +172,7 @@ public class ComicCollectionViewModel {
 	    }
 
 	    selected.getCollection().remove(this.selectedComicProperty.get());
+	    this.numberMap.remove(this.selectedComicProperty.get().getIssueNumber());
 
 	    this.selectedCollectionListProperty.remove(this.selectedComicProperty.get());
 	}
@@ -181,5 +182,33 @@ public class ComicCollectionViewModel {
 	 */
 	public StringProperty getSearchText() {
 		return this.searchText;
+	}
+	
+	/** Finds a comic with name or issue number that matches provided searchText
+	 * 
+	 * @precondition none
+	 * @postcondition Comic found or return no comic found.
+	 * 
+	 * @return A string representation of the comic found.
+	 */
+	public String findComic() {
+		if (!Comic.checkName(this.searchText.get()) && !Comic.checkIssueNumber(this.searchText.get())) {
+			throw new IllegalArgumentException("Search criteria is not a valid name or issue number");
+		}
+
+		if (Comic.checkName(this.searchText.getValue())) {
+			Comic found = this.titleMap.get(this.searchText.get());
+			if (found != null) {
+				return found.toString();
+			}
+		}
+		if (Comic.checkIssueNumber(this.searchText.getValue())) {
+			int parsedNum = Integer.parseInt(this.searchText.get());
+			Comic found = this.numberMap.get(parsedNum);
+			if (found != null) {
+				return found.toString();
+			}		
+		}
+		return "No comic found.";
 	}
 }
