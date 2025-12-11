@@ -54,7 +54,7 @@ public class Comic {
 	 * 		   false 	if name does not match expected style
 	 */
 	public static boolean checkName(String name) {
-		return name != null && name.matches("[a-zA-Z]+");
+		return name != null && name.matches("[a-zA-Z\\s]+");
 	}
 	
 	/** Checks if an entered search is a number
@@ -73,6 +73,6 @@ public class Comic {
 
 	@Override
 	public String toString() {
-		return this.title + " issue #" + this.issueNumber;
+		return "\"" + this.title + "\"" + " issue #" + this.issueNumber;
 	}
 }
