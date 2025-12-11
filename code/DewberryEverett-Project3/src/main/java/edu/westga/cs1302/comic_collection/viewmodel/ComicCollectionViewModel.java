@@ -134,6 +134,10 @@ public class ComicCollectionViewModel {
 		if (this.selectedCollectionProperty.get() == null) {
 			throw new IllegalArgumentException("Please select a Collection to remove it.");
 		}
+		for (Comic comic : this.selectedCollectionProperty.get().getCollection()) {
+			this.numberMap.remove(comic.getIssueNumber());
+			this.titleMap.remove(comic.getTitle());
+		}
 		this.collectionListProperty.remove(this.selectedCollectionProperty.get());
 	}
 	
@@ -169,11 +173,15 @@ public class ComicCollectionViewModel {
 	public void removeComicFromSelectedCollection() {
 	    ComicCollection selected = this.selectedCollectionProperty.get();
 	    if (selected == null) {
-	        throw new IllegalArgumentException("Please select a collection to add a comic.");
+	        throw new IllegalArgumentException("Please select a collection to remove a comic.");
+	    }
+	    if (this.selectedComicProperty.get() == null) {
+	    	throw new IllegalArgumentException("Please select a comic to remove.");
 	    }
 
 	    selected.getCollection().remove(this.selectedComicProperty.get());
 	    this.numberMap.remove(this.selectedComicProperty.get().getIssueNumber());
+	    this.titleMap.remove(this.selectedComicProperty.get().getTitle());
 
 	    this.selectedCollectionListProperty.remove(this.selectedComicProperty.get());
 	}
@@ -219,7 +227,6 @@ public class ComicCollectionViewModel {
 	 */
 	public String badSearchCriteria() {
 		String message;
-		
 		
 		if (!(Comic.checkIssueNumber(this.searchText.getValue()) || Comic.checkName(this.searchText.getValue()))) {
 			message = "Bad search criteria. Please input a number or comic title.";
